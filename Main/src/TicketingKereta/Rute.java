@@ -1,4 +1,5 @@
 
+package TicketingKereta;
 import java.util.*;
 
 /*
@@ -90,6 +91,7 @@ public class Rute {
         } else {
             System.out.println("Kereta tsb tidak tersedia dalam rute ini");
         }
+        nTiket++;
     }
     
     public void addKereta (Kereta k) {

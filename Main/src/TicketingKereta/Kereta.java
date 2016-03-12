@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package TicketingKereta;
 
 /**
  *
@@ -21,8 +22,8 @@ public class Kereta {
         nKereta++;
         this.tipeKereta = tipeKereta;
         if (this.tipeKereta == 1) {
-            jenisKereta = "Kereta Rel Listrik";
-        } else jenisKereta = "Kereta Rel Diesel";
+            jenisKereta = "Kereta Listrik";
+        } else jenisKereta = "Kereta Diesel";
     }
 
     /**
@@ -104,6 +105,7 @@ public class Kereta {
             System.out.println("Gerbong tidak ditemukan");
         } else {
             daftarGerbong[i] = null;
+            nGerbong--;
         }
     }
 }
