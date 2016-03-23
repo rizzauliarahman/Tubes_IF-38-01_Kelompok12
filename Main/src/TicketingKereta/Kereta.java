@@ -94,11 +94,13 @@ public class Kereta {
     
     public void removeGerbong (int id) {
         int i = 0;
-        Gerbong g = daftarGerbong.get(i);
-        while (g.getIdGerbong() != id) {
-            i++;
+        Gerbong g;
+        do {
             g = daftarGerbong.get(i);
-        }
+            if (g.getIdGerbong() != i) {
+                i++;    
+            }
+        } while (g.getIdGerbong() != id);
         if (g.getIdGerbong() == id) {
             daftarGerbong.remove(g);
         }
