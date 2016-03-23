@@ -18,7 +18,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SimpleDateFormat formDate = new SimpleDateFormat("yyyy, MMMM dd");
+        SimpleDateFormat formDate = new SimpleDateFormat("MMMM dd, yyyy");
         Gerbong g1 = new Gerbong(1);
         g1.setKapasitas(40);
         Gerbong g2 = new Gerbong(1);
@@ -57,6 +57,7 @@ public class Main {
         r1.setStasiun2(s2);
         r1.addKereta(k1);
         r1.createTicket(dt1, 1, 400000, k1.getIdKereta());
+        r1.createTicket(dt1, 2, 300000, k1.getIdKereta());
         
         System.out.println("Rute");
         System.out.println("Nama Rute : "+r1.getNamaRute());
@@ -76,6 +77,7 @@ public class Main {
             System.out.println("Jenis Kereta : "+r1.daftarTiketDibeli[i].getKereta().getJenisKereta());
             System.out.println("Jenis Gerbong : "+r1.daftarTiketDibeli[i].getJenisTiket());
             System.out.println("Harga : "+r1.daftarTiketDibeli[i].getHargaTiket());
+            System.out.println();
         }
     }
     

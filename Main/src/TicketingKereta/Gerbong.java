@@ -12,7 +12,7 @@ package TicketingKereta;
 public class Gerbong {
     private int kapasitas, tipeGerbong, idGerbong;
     private String jenisGerbong;
-    private int nGerbong = 1000;
+    private static int nGerbong = 1000;
     
     public Gerbong (int tipe) {
         tipeGerbong = tipe;

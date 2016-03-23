@@ -18,7 +18,7 @@ public class Tiket {
     private long hargaTiket;
     private String jenisTiket;
     private Date tglBerangkat;
-    private int nTiket = 3000;
+    private static int nTiket = 3000;
     private Kereta kereta;
 
     public Tiket(Date tanggal, int tipeTiket, long hargaTiket, Kereta kereta) {

@@ -5,7 +5,7 @@
  */
 package TicketingKereta;
 
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -15,7 +15,7 @@ public class Kereta {
     private String namaKereta, jenisKereta;
     private int idKereta, tipeKereta, nGerbong;
     private int nKereta = 5000;
-    List<Gerbong> daftarGerbong;
+    List<Gerbong> daftarGerbong = new ArrayList<Gerbong>();
 
     public Kereta(String namaKereta, int tipeKereta) {
         this.namaKereta = namaKereta;
@@ -57,6 +57,7 @@ public class Kereta {
 
     /**
      * set idKereta with the amount of nKereta and increment idKereta
+     * @param idKereta
      */
     public void setIdKereta(int idKereta) {
         this.idKereta = nKereta;

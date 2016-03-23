@@ -17,7 +17,7 @@ public class Rute {
     private Stasiun stasiun1;
     private Stasiun stasiun2;
     Tiket[] daftarTiketDibeli;
-    List<Kereta> daftarKereta;
+    List<Kereta> daftarKereta =  new ArrayList<Kereta>();
     private int nTiket, nKereta;
 
     public Rute(String namaRute, int maxTiket) {
