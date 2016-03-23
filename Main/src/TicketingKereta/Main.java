@@ -33,7 +33,7 @@ public class Main {
         g6.setKapasitas(60);
         Gerbong g7 = new Gerbong(3);
         g7.setKapasitas(60);
-        Kereta k1 = new Kereta("Argo Lawu",2,10);
+        Kereta k1 = new Kereta("Argo Lawu",2);
         k1.addGerbong(g1);
         k1.addGerbong(g2);
         k1.addGerbong(g3);
@@ -51,7 +51,7 @@ public class Main {
         s2.setJumlahJalur(5);
         s2.setKota("Merauke");
         s2.setTahunPbangunan(2000);
-        Rute r1 = new Rute("Pantura",350,5);
+        Rute r1 = new Rute("Pantura",350);
         Date dt1 = new Date(((16)+100), 2, 28);
         r1.setStasiun1(s1);
         r1.setStasiun2(s2);

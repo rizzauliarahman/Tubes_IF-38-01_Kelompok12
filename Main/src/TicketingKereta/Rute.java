@@ -17,13 +17,12 @@ public class Rute {
     private Stasiun stasiun1;
     private Stasiun stasiun2;
     Tiket[] daftarTiketDibeli;
-    Kereta[] daftarKereta;
+    List<Kereta> daftarKereta;
     private int nTiket, nKereta;
 
-    public Rute(String namaRute, int maxTiket, int maxKereta) {
+    public Rute(String namaRute, int maxTiket) {
         this.namaRute = namaRute;
         daftarTiketDibeli = new Tiket[maxTiket];
-        daftarKereta = new Kereta[maxKereta];
     }
 
     /**
@@ -77,12 +76,13 @@ public class Rute {
     
     public void createTicket(Date tanggal, int tipeTiket, long hargaTiket, int idKereta) {
         int i = 0;
-        Kereta a;
-        while ((daftarKereta[i].getIdKereta() != idKereta) && (i < nKereta)) {
+        Kereta a = daftarKereta.get(i);
+        while ((a.getIdKereta() != idKereta)) {
             i++;
+            a = daftarKereta.get(i);
         }
-        if (daftarKereta[i].getIdKereta() == idKereta) {
-            a = daftarKereta[i];
+        if (a.getIdKereta() == idKereta) {
+            a = daftarKereta.get(i);
             if (nTiket < daftarTiketDibeli.length) { 
                 daftarTiketDibeli[nTiket] = new Tiket(tanggal, tipeTiket, hargaTiket, a);
             } else {
@@ -95,10 +95,7 @@ public class Rute {
     }
     
     public void addKereta (Kereta k) {
-        if (nKereta < daftarKereta.length) {
-            daftarKereta[nKereta] = k;
-            nKereta++;
-        }
+        daftarKereta.add(k);
     }
     
     /**

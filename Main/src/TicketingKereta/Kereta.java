@@ -5,6 +5,8 @@
  */
 package TicketingKereta;
 
+import java.util.List;
+
 /**
  *
  * @author Rizza
@@ -13,11 +15,10 @@ public class Kereta {
     private String namaKereta, jenisKereta;
     private int idKereta, tipeKereta, nGerbong;
     private int nKereta = 5000;
-    Gerbong[] daftarGerbong;
+    List<Gerbong> daftarGerbong;
 
-    public Kereta(String namaKereta, int tipeKereta, int maxGerbong) {
+    public Kereta(String namaKereta, int tipeKereta) {
         this.namaKereta = namaKereta;
-        daftarGerbong = new Gerbong[maxGerbong];
         this.idKereta = nKereta;
         nKereta++;
         this.tipeKereta = tipeKereta;
@@ -84,28 +85,22 @@ public class Kereta {
     }
     
     public void addGerbong (Gerbong g) {
-        if (nGerbong < daftarGerbong.length) {
-            daftarGerbong[nGerbong] = g;
-            nGerbong++;
-        } else {
-            System.out.println("Gerbong sudah penuh");
-        }
+        daftarGerbong.add(g);
     }
 
     public Gerbong getGerbong (int idx) {
-        return daftarGerbong[idx];
+        return daftarGerbong.get(idx);
     }
     
     public void removeGerbong (int id) {
         int i = 0;
-        while ((daftarGerbong[i].getIdGerbong() != id) && (i < nGerbong)) {
+        Gerbong g = daftarGerbong.get(i);
+        while (g.getIdGerbong() != id) {
             i++;
+            g = daftarGerbong.get(i);
         }
-        if (daftarGerbong[i].getIdGerbong() != id) {
-            System.out.println("Gerbong tidak ditemukan");
-        } else {
-            daftarGerbong[i] = null;
-            nGerbong--;
+        if (g.getIdGerbong() == id) {
+            daftarGerbong.remove(g);
         }
     }
 }
