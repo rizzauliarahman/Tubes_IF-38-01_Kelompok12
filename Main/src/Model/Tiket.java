@@ -1,5 +1,5 @@
 
-package TicketingKereta;
+package Model;
 import java.util.*;
 
 /*
@@ -17,15 +17,17 @@ public class Tiket {
     private int tipeTiket, idTiket;
     private long hargaTiket;
     private String jenisTiket;
-    private Date tglBerangkat;
+    private GregorianCalendar tglBerangkat;
     private static int nTiket = 3000;
     private Kereta kereta;
+    private Gerbong gerbong;
 
-    public Tiket(Date tanggal, int tipeTiket, long hargaTiket, Kereta kereta) {
+    public Tiket(GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
         this.tipeTiket = tipeTiket;
         this.hargaTiket = hargaTiket;
         this.tglBerangkat = tanggal;
         this.kereta = kereta;
+        this.gerbong = gerbong;
         idTiket = nTiket;
         nTiket++;
         if (this.tipeTiket == 1) {
@@ -35,6 +37,14 @@ public class Tiket {
         } else {
             jenisTiket = "Ekonomi";
         }
+    }
+
+    public Gerbong getGerbong() {
+        return gerbong;
+    }
+
+    public void setGerbong(Gerbong gerbong) {
+        this.gerbong = gerbong;
     }
 
     /**
@@ -75,14 +85,14 @@ public class Tiket {
     /**
      * @return the tglBerangkat
      */
-    public Date getTglBerangkat() {
+    public GregorianCalendar getTglBerangkat() {
         return tglBerangkat;
     }
 
     /**
      * @param tglBerangkat the tglBerangkat to set
      */
-    public void setTglBerangkat(Date tglBerangkat) {
+    public void setTglBerangkat(GregorianCalendar tglBerangkat) {
         this.tglBerangkat = tglBerangkat;
     }
 

@@ -1,5 +1,5 @@
 
-package TicketingKereta;
+package Model;
 import java.util.*;
 
 /*
@@ -74,23 +74,8 @@ public class Rute {
         return nTiket;
     }
     
-    public void createTicket(Date tanggal, int tipeTiket, long hargaTiket, int idKereta) {
-        int i = 0;
-        Kereta a = daftarKereta.get(i);
-        while ((a.getIdKereta() != idKereta)) {
-            i++;
-            a = daftarKereta.get(i);
-        }
-        if (a.getIdKereta() == idKereta) {
-            a = daftarKereta.get(i);
-            if (nTiket < daftarTiketDibeli.length) { 
-                daftarTiketDibeli[nTiket] = new Tiket(tanggal, tipeTiket, hargaTiket, a);
-            } else {
-                System.out.println("Sudah tidak ada tiket tersedia");
-            }
-        } else {
-            System.out.println("Kereta tsb tidak tersedia dalam rute ini");
-        }
+    public void createTicket(GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
+        daftarTiketDibeli[nTiket] = new Tiket(tanggal, tipeTiket, hargaTiket, kereta, gerbong);
         nTiket++;
     }
     
@@ -105,5 +90,19 @@ public class Rute {
      */
     public Tiket getTiket (int idx) {
         return daftarTiketDibeli[idx];
+    }
+    
+    public void tampil() {
+        System.out.println("Nama Rute : "+this.namaRute);
+        System.out.println("Stasiun 1");
+        this.stasiun1.tampil();
+        System.out.println("Stasiun 2");
+        this.stasiun2.tampil();
+        System.out.println("Jumlah Tiket : "+daftarTiketDibeli.length);
+        System.out.println("Jumlah Tiket Terbeli : "+nTiket);
+    }
+    
+    public void printDaftarKereta () {
+        daftarKereta.forEach((Kereta o) -> o.toString());
     }
 }

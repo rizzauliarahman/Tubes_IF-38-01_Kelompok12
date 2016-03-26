@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TicketingKereta;
+package Model;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ import java.util.*;
 public class Kereta {
     private String namaKereta, jenisKereta;
     private int idKereta, tipeKereta, nGerbong;
-    private int nKereta = 5000;
+    private static int nKereta = 5000;
     List<Gerbong> daftarGerbong = new ArrayList<Gerbong>();
 
     public Kereta(String namaKereta, int tipeKereta) {
@@ -87,23 +87,35 @@ public class Kereta {
     
     public void addGerbong (Gerbong g) {
         daftarGerbong.add(g);
+        nGerbong++;
     }
 
-    public Gerbong getGerbong (int idx) {
-        return daftarGerbong.get(idx);
+    public Gerbong getGerbong (int id) {
+        return daftarGerbong.stream().filter((Gerbong o) -> o.getIdGerbong() == id).findFirst().orElse(null);
     }
     
     public void removeGerbong (int id) {
-        int i = 0;
-        Gerbong g;
-        do {
-            g = daftarGerbong.get(i);
-            if (g.getIdGerbong() != i) {
-                i++;    
-            }
-        } while (g.getIdGerbong() != id);
-        if (g.getIdGerbong() == id) {
-            daftarGerbong.remove(g);
-        }
+          daftarGerbong.removeIf(o -> o.getIdGerbong() == id);
     }
+    
+    public void tampil () {
+        System.out.println("Nama Kereta : "+this.namaKereta);
+        System.out.println("Jenis Kereta : "+this.jenisKereta);
+        System.out.println("Jumlah Gerbong : "+this.nGerbong);
+        System.out.println();
+    }
+    
+    public void tampilDetil () {
+        System.out.println("Nama Kereta : "+this.namaKereta);
+        System.out.println("Jenis Kereta : "+this.jenisKereta);
+        System.out.println("ID : "+this.idKereta);
+        System.out.println("Jumlah Gerbong : "+this.nGerbong);
+        daftarGerbong.forEach((Gerbong o) -> o.toString());
+    }
+    
+    @Override
+    public String toString() {
+        return "ID : "+this.idKereta+", Kereta "+this.namaKereta+" Jumlah Gerbong "+this.nGerbong;
+    }
+    
 }

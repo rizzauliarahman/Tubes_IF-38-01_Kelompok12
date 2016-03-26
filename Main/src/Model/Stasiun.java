@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TicketingKereta;
+package Model;
 
 /**
  *
@@ -115,5 +115,24 @@ public class Stasiun {
      */
     public void setTahunPbangunan(int tahunPbangunan) {
         this.tahunPbangunan = tahunPbangunan;
-    }    
+    }
+
+    public void tampil() {
+        System.out.println("Nama Stasiun : "+this.namaStasiun);
+        System.out.println("Nomor Stasiun : "+this.nomorStasiun);
+        System.out.println("Alamat : "+this.alamat);
+        System.out.println("Kota : "+this.kota);
+        System.out.println();
+    }
+    
+    public void tampilDetil() {
+        System.out.println("Nama Stasiun : "+this.namaStasiun);
+        System.out.println("Singkatan : "+this.singkatan);
+        System.out.println("Nomor Stasiun : "+this.nomorStasiun);
+        System.out.println("Alamat : "+this.alamat);
+        System.out.println("Kota : "+this.kota);
+        System.out.println("Jumlah Jalur : "+this.jumlahJalur);
+        System.out.println("Tahun Pembangunan : "+this.tahunPbangunan);
+        System.out.println();
+    }
 }

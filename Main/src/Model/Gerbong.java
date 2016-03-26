@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TicketingKereta;
+package Model;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Gerbong {
     private String jenisGerbong;
     private static int nGerbong = 1000;
     
-    public Gerbong (int tipe) {
+    public Gerbong (int kapasitas, int tipe, long harga) {
         tipeGerbong = tipe;
         if (tipeGerbong == 1) {
             jenisGerbong = "Eksekutif";
@@ -24,6 +24,7 @@ public class Gerbong {
             jenisGerbong = "Ekonomi";
         }
         idGerbong = nGerbong;
+        this.kapasitas = kapasitas;
         nGerbong++;
     }
 
@@ -82,5 +83,17 @@ public class Gerbong {
     public void setIdGerbong() {
         this.idGerbong = nGerbong;
         nGerbong++;
+    }
+    
+    public void tampil() {
+        System.out.println("ID Gerbong : "+this.idGerbong);
+        System.out.println("Jenis Gerbong : "+this.jenisGerbong);
+        System.out.println("Kapasitas : "+this.kapasitas);
+        System.out.println();
+    }
+    
+    @Override
+    public String toString() {
+        return "ID Gerbong : "+this.idGerbong+", Jenis Gerbong : "+this.jenisGerbong+", Kapasitas : "+this.kapasitas;
     }
 }
