@@ -5,14 +5,25 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rizza
  */
-public class Gerbong {
+public class Gerbong implements Serializable {
     private int kapasitas, tipeGerbong, idGerbong;
     private String jenisGerbong;
     private static int nGerbong = 1000;
+    private long harga;
+
+    public static int getnGerbong() {
+        return nGerbong;
+    }
+
+    public static void setnGerbong(int nGerbong) {
+        Gerbong.nGerbong = nGerbong;
+    }
     
     public Gerbong (int kapasitas, int tipe, long harga) {
         tipeGerbong = tipe;
@@ -25,7 +36,16 @@ public class Gerbong {
         }
         idGerbong = nGerbong;
         this.kapasitas = kapasitas;
+        this.harga = harga;
         nGerbong++;
+    }
+
+    public long getHarga() {
+        return harga;
+    }
+
+    public void setHarga(long harga) {
+        this.harga = harga;
     }
 
     /**

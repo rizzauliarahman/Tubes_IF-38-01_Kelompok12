@@ -6,6 +6,11 @@
 package View;
 
 import Model.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Struct;
 import java.util.*;
 import java.text.*;
@@ -15,10 +20,35 @@ import java.text.*;
  * @author Rizza
  */
 public class Application {
-    List<Model.Stasiun> daftarStasiun = new ArrayList<Model.Stasiun>();
-    List<Kereta> daftarKereta = new ArrayList<Kereta>();
-    List<Rute> daftarRute = new ArrayList<Rute>();
-    List<Gerbong> daftarGerbong = new ArrayList<Gerbong>();
+    public List<Stasiun> daftarStasiun = new ArrayList<Stasiun>();
+    public List<Kereta> daftarKereta = new ArrayList<Kereta>();
+    public List<Rute> daftarRute = new ArrayList<Rute>();
+    public List<Gerbong> daftarGerbong = new ArrayList<Gerbong>();
+    
+    public void writeFile (Object o, String filename) throws Exception {
+        try (FileOutputStream fout = new FileOutputStream(filename)){
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            oout.writeObject(o);
+            oout.close();
+        }
+    }
+    
+    public void writeFile (List o, String filename) throws Exception {
+        try (FileOutputStream fout = new FileOutputStream(filename)){
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            oout.writeObject(o);
+            oout.close();
+        }
+    }
+    
+    public Object readFile (String filename) throws Exception {
+        Object o;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
+            o = (ArrayList) ois.readObject();
+            ois.close();
+        }
+        return o;
+    }
     
     public void menuAddRute (Rute r) {
         daftarRute.add(r);
@@ -37,7 +67,7 @@ public class Application {
     }
         
     public Stasiun menuSearchStasiun(int noStasiun) {
-        return daftarStasiun.stream().filter((Stasiun o) -> o.getNomorStasiun() == noStasiun).findFirst().orElse(null);
+        return daftarStasiun.stream().filter((Stasiun o) -> (o.getNomorStasiun() == noStasiun)).findFirst().orElse(null);
     }
     
     public void menuDeleteStasiun (Stasiun s) {
@@ -71,7 +101,7 @@ public class Application {
     }
     
     public void menuViewAllGerbong () {
-        daftarGerbong.forEach((Gerbong o) -> o.toString());
+        daftarGerbong.forEach((Gerbong o) -> System.out.println(o));
     }
     
     public boolean isValidFormat (String format, long value) {
@@ -91,26 +121,46 @@ public class Application {
     
     public void tampilMenuEditStasiun() {
         int pilih;
+        boolean check = false;
         do {         
             Scanner s1 = new Scanner(System.in);
             Scanner s2 = new Scanner(System.in);
-            int noStasiun;
+            int noStasiun = 0;
+            Stasiun s;
             pilih = 0;
             String namaStasiun, alamat, kota, singkatan;
             System.out.println("Edit Data Stasiun");
             System.out.println("1. Tambahkan Stasiun Baru");
             System.out.println("2. Cari Stasiun");
             System.out.println("0. Kembali ke Menu Awal");
-            System.out.println();
+            System.out.println();                
             System.out.print("Pilihan menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1 = new Scanner(System.in);
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah");
+                continue;
+            }                
             System.out.println();
             switch (pilih) {
                 case 1 :
+                {       
                     System.out.println("Tambahkan Stasiun Baru");
-                    System.out.println("Nomor Stasiun : ");
-                    noStasiun = s1.nextInt();
-                    Stasiun s = menuSearchStasiun(noStasiun);
+                    do {
+                        check = false;
+                        System.out.print("Nomor Stasiun : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            noStasiun = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                    } while (!check);
+                    s = menuSearchStasiun(noStasiun);
                     if (s == null) {
                         System.out.print("Nama Stasiun : ");
                         namaStasiun = s2.nextLine();
@@ -129,30 +179,48 @@ public class Application {
                         tampilMenuCariStasiun(s);
                     }
                     break;
+                }
                 case 2 :
-                    System.out.println("Nomor Stasiun yang ingin dicari : ");
-                    noStasiun = s1.nextInt();
-                    s = menuSearchStasiun(noStasiun);
-                    if (s == null) {
-                        System.out.println("Stasiun dengan nomor tersebut tidak ada");
-                    } else {
-                        System.out.println();
-                        tampilMenuCariStasiun(s);
-                    }
-                case 3 :
+                {
+                    do {                        
+                        System.out.println("Edit Data Stasiun");
+                        daftarStasiun.forEach((Stasiun o) -> o.tampil());
+                        check = false;
+                        System.out.print("Nomor Stasiun yang ingin di-edit : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            noStasiun = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                        s = menuSearchStasiun(noStasiun);
+                        if (s == null) {
+                            System.out.println("Stasiun dengan nomor tersebut tidak ada");
+                        } else {
+                            System.out.println();
+                            tampilMenuCariStasiun(s);
+                        }
+                    } while (!check);
+                    break;
+                }
+                case 0 :
                     System.out.println("Selesai!");
                     break;
                 default :
                     System.out.println("Pilihan Salah");
+                    System.out.println();
                     break;
             }
-        } while (pilih != 0);
+            //check = s1.hasNextInt();
+        } while ((pilih != 0) || (!check));
     }
     
     public void tampilMenuCariStasiun(Stasiun s) {
+        boolean check = false;
         int pilih;
         do {         
-            
             Scanner s1 = new Scanner(System.in);
             Scanner s2 = new Scanner(System.in);
             int nomor, jmlJalur, tahun;
@@ -171,7 +239,14 @@ public class Application {
             System.out.println("0. Kembali ke Menu Utama");
             System.out.println();
             System.out.print("Pilihan Menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1.reset();
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah!");
+                continue;
+            }
             System.out.println();
             switch (pilih) {
                 case 1 :
@@ -185,9 +260,19 @@ public class Application {
                     s.setSingkatan(singkatan);
                     break;
                 case 3 :
-                    System.out.print("Masukkan Nomor Stasiun : ");
-                    nomor = s1.nextInt();
-                    s.setNomorStasiun(nomor);
+                    do {                        
+                        check = false;
+                        System.out.print("Masukkan Nomor Stasiun : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            nomor = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }    
+                        s.setNomorStasiun(nomor);
+                    } while (!check);
                     break;
                 case 4 :
                     System.out.print("Masukkan Alamat Stasiun : ");
@@ -200,14 +285,27 @@ public class Application {
                     s.setKota(kota);
                     break;
                 case 6 :
-                    System.out.print("Masukkan Jumlah Jalur Dalam Stasiun : ");
-                    jmlJalur = s1.nextInt();
-                    s.setJumlahJalur(jmlJalur);
+                    do {                        
+                        check = false;
+                        System.out.print("Masukkan Jumlah Jalur Dalam Stasiun : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            jmlJalur = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Pilihan Salah!");
+                            continue;
+                        }
+                        s.setJumlahJalur(jmlJalur);
+                    } while (!check);
                     break;
                 case 7 :
-                    System.out.print("Masukkan Tahun Pembangunan Stasiun : ");
-                    tahun = s1.nextInt();
-                    s.setTahunPbangunan(tahun);
+                    do {                        
+                        check = false;
+                        System.out.print("Masukkan Tahun Pembangunan Stasiun : ");
+                        tahun = s1.nextInt();
+                        s.setTahunPbangunan(tahun);
+                    } while (!check);
                     break;
                 case 0 :
                     System.out.println("Selesai!");
@@ -217,10 +315,11 @@ public class Application {
                     System.out.println();
                     break;
             }
-        } while (pilih != 0);
+        } while ((pilih != 0) || (!check));
     }
     
     public void tampilMenuEditKereta () {
+        boolean check = false;
         int pilih;
         do {            
             
@@ -235,18 +334,40 @@ public class Application {
             System.out.println("0. Kembali ke Menu Utama");
             System.out.println();
             System.out.print("Pilihan menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1 = new Scanner(System.in);
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah");
+                continue;
+            }
             System.out.println();
             switch (pilih) {
                 case 1 :
                     System.out.println("Tambahkan Kereta Baru");
-                    System.out.println("Nama Kereta : ");
+                    System.out.print("Nama Kereta : ");
                     namaKereta = s2.nextLine();
                     Kereta k = menuSearchKereta(namaKereta);
                     if (k == null) {
-                        System.out.print("Tipe Kereta (1 = Listrik, 2 = Diesel) : ");
-                        tipe = s1.nextInt();
-                        k = new Kereta(namaKereta, tipe);
+                        do {                            
+                            check = false;
+                            System.out.print("Tipe Kereta (1 = Listrik, 2 = Diesel) : ");
+                            try {
+                                s1 = new Scanner(System.in);
+                                tipe = s1.nextInt();
+                                check = true;
+                            } catch (Exception e) {
+                                System.out.println("Input Salah!");
+                                continue;
+                            }
+                            if ((tipe != 1) && (tipe != 2)) {
+                                System.out.println("Tipe Kereta Salah!");
+                                check = false;
+                            } else {                                
+                                k = new Kereta(namaKereta, tipe);
+                            }
+                        } while (!check);
                         daftarKereta.add(k);
                     } else {
                         System.out.println();
@@ -254,7 +375,7 @@ public class Application {
                     }
                     break;
                 case 2 :
-                    System.out.println("Nama Kereta yang ingin dicari : ");
+                    System.out.print("Nama Kereta yang ingin dicari : ");
                     namaKereta = s2.nextLine();
                     k = menuSearchKereta(namaKereta);
                     if (k == null) {
@@ -270,11 +391,12 @@ public class Application {
                     System.out.println("Pilihan Salah!");
                     break;
             }
-        } while (pilih != 0);
+        } while ((pilih != 0) || (!check));
     }
     
     public void tampilMenuCariKereta(Kereta k) {
-        int pilih;
+        boolean check = false;
+        int pilih = 0;
         do {            
             
             Scanner s1 = new Scanner(System.in);
@@ -291,7 +413,14 @@ public class Application {
             System.out.println("0. Kembali ke Menu Utama");
             System.out.println();
             System.out.print("Pilihan Menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1 = new Scanner(System.in);
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah!");
+                continue;
+            }
             System.out.println();
             switch (pilih) {
                 case 1 :
@@ -300,32 +429,70 @@ public class Application {
                     k.setNamaKereta(namaKereta);
                     break;
                 case 2 :
-                    System.out.print("Masukkan Tipe Kereta (1 = Listrik, 2 = Diesel) : ");
-                    tipe = s1.nextInt();
-                    k.setTipeKereta(tipe);
+                    do {                        
+                        check = false;
+                        System.out.print("Masukkan Tipe Kereta (1 = Listrik, 2 = Diesel) : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            tipe = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                        if ((tipe != 1) && (tipe != 2)) {
+                            System.out.println("Tipe Kereta Salah!");
+                            check = false;
+                        } else {                            
+                            k.setTipeKereta(tipe);
+                        }
+                    } while (!check);
                     break;
                 case 3 :
                     menuViewAllGerbong();
-                    System.out.println("Masukkan ID Gerbong yang akan ditambahkan");
-                    idGerbong = s1.nextInt();
-                    Gerbong g = menuSearchGerbong(idGerbong);
-                    if (g != null) {
-                        menuDeleteGerbong(g.getIdGerbong());
-                        k.addGerbong(g);
-                    } else {
-                        System.out.println("Tidak ada Gerbong dengan ID tersebut");
-                    }
+                    Gerbong g = null;
+                    do {                        
+                        check = false;
+                        System.out.print("Masukkan ID Gerbong yang akan ditambahkan : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            idGerbong = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                        g = menuSearchGerbong(idGerbong);
+                        if (g != null) {
+                            menuDeleteGerbong(g.getIdGerbong());
+                            k.addGerbong(g);
+                        } else {
+                            System.out.println("Tidak ada Gerbong dengan ID tersebut");
+                        }
+                    } while (!check);
                     break;
                 case 4 :
                     k.tampilDetil();
-                    System.out.println("Masukkan ID Gerbong yang akan dihapus");
-                    idGerbong = s1.nextInt();
-                    Gerbong a = k.getGerbong(idGerbong);
-                    if (a != null) {
-                        k.removeGerbong(idGerbong);  
-                    } else {
-                        System.out.println("Gerbong dengan ID tersebut tidak ada");
-                    }
+                    Gerbong a = null;
+                    do {                        
+                        check = false;
+                        System.out.print("Masukkan ID Gerbong yang akan dihapus : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            idGerbong = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                        a = k.getGerbong(idGerbong);
+                        if (a != null) {
+                            menuAddGerbong(a.getKapasitas(), a.getTipeGerbong(), a.getHarga());
+                            k.removeGerbong(idGerbong);
+                        } else {
+                            System.out.println("Gerbong dengan ID tersebut tidak ada");
+                        }
+                    } while (!check);
                     break;
                 case 0 :
                     System.out.println("Selesai!");
@@ -335,16 +502,17 @@ public class Application {
                     System.out.println();
                     break;
             }
-        } while (pilih != 0);
+        } while ((pilih != 0) || (!check));
     }
     
     public void tampilMenuEditRute () {
-        int pilih;
+        boolean check = false;
+        int pilih = 0;
         do {            
             
             Scanner s1 = new Scanner(System.in);
             Scanner s2 = new Scanner(System.in);
-            int nomorStasiun1, nomorStasiun2;
+            int nomorStasiun1 = 0, nomorStasiun2 = 0;
             String namaRute;
             System.out.println("Edit Data Rute");
             System.out.println("1. Tambahkan Rute Baru");
@@ -352,41 +520,75 @@ public class Application {
             System.out.println("0. Kembali ke Menu Utama");
             System.out.println();
             System.out.print("Pilihan menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1 = new Scanner(System.in);
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah!");
+                continue;
+            }
             System.out.println();
             switch (pilih) {
                 case 1 :
+                    Stasiun st1, st2;
                     System.out.println("Tambahkan Rute Baru");
-                    System.out.println("Nama Rute : ");
+                    System.out.print("Nama Rute : ");
                     namaRute = s2.nextLine();
                     Rute r = menuSearchRute(namaRute);
                     if (r == null) {
-                        System.out.print("Stasiun 1 : ");
-                        nomorStasiun1 = s1.nextInt();
-                        Stasiun st1 = menuSearchStasiun(nomorStasiun1);
-                        System.out.print("Stasiun 2 : ");
-                        nomorStasiun2 = s1.nextInt();
-                        Stasiun st2 = menuSearchStasiun(nomorStasiun2);
-                        if ((st1 != null) && (st2 != null)) {
-                            r.setStasiun1(st1);
-                            r.setStasiun2(st2);
-                            daftarRute.add(r);    
-                        }
+                        r = new Rute(namaRute);
+                        daftarStasiun.forEach((Stasiun o) -> System.out.println(o));
+                        System.out.println();
+                        do {                            
+                            check = false;
+                            System.out.print("Nomor Stasiun 1 : ");
+                            try {
+                                s1 = new Scanner(System.in);
+                                nomorStasiun1 = s1.nextInt();
+                                check = true;
+                            } catch (Exception e) {
+                                System.out.println("Input Salah!");
+                                continue;
+                            }
+                        } while (!check);
+                        st1 = menuSearchStasiun(nomorStasiun1);
+                        do {                            
+                            check = false;
+                            System.out.print("Nomor Stasiun 2 : ");
+                            try {
+                                s1 = new Scanner(System.in);
+                                nomorStasiun2 = s1.nextInt();
+                                check = true;
+                            } catch (Exception e) {
+                                System.out.println("Input Salah!");
+                                continue;
+                            }
+                            st2 = menuSearchStasiun(nomorStasiun2);
+                            if ((st1 != null) && (st2 != null)) {
+                                r.setStasiun1(st1);
+                                r.setStasiun2(st2);
+                            } else {
+                                check = false;
+                            }
+                        } while (!check);
+                        daftarRute.add(r);    
                     } else {
                         System.out.println();
                         tampilMenuCariRute(r);
                     }
                     break;
                 case 2 :
-                    System.out.println("Nama Rute yang ingin dicari : ");
+                    System.out.print("Nama Rute yang ingin dicari : ");
                     namaRute = s2.nextLine();
                     r = menuSearchRute(namaRute);
                     if (r == null) {
-                        System.out.println("Stasiun dengan nomor tersebut tidak ada");
+                        System.out.println("Rute dengan nama tersebut tidak ada");
                     } else {
                         System.out.println();
                         tampilMenuCariRute(r);
                     }
+                    break;
                 case 0 :
                     System.out.println("Selesai!");
                     break;
@@ -394,11 +596,12 @@ public class Application {
                     System.out.println("Pilihan Salah!");
                     break;
             }
-        } while (pilih != 0);
+        } while ((pilih != 0) || (!check));
     }
     
     public void tampilMenuCariRute (Rute r) {
-        int pilih;
+        boolean check;
+        int pilih = 0;
         do {            
             
             Scanner s1 = new Scanner(System.in);
@@ -414,7 +617,14 @@ public class Application {
             System.out.println("4. Tambahkan Kereta yang Tersedia");
             System.out.println();
             System.out.print("Pilihan Menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1 = new Scanner(System.in);
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah!");
+                continue;
+            }
             System.out.println();
             switch (pilih) {
                 case 1 :
@@ -423,20 +633,52 @@ public class Application {
                     r.setNamaRute(namaRute);
                     break;
                 case 2 :
-                    System.out.print("Masukkan Nomor Stasiun 1 : ");
-                    noStasiun1 = s1.nextInt();
-                    Stasiun st1 = menuSearchStasiun(noStasiun1);
-                    if (st1 != null) {
-                        r.setStasiun1(st1);
-                    }
+                    Stasiun st1 = null;
+                    do {
+                        daftarStasiun.forEach((Stasiun o) -> System.out.println(o));
+                        System.out.println();
+                        check = false;
+                        System.out.print("Masukkan Nomor Stasiun 1 : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            noStasiun1 = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah");
+                            continue;
+                        }
+                        st1 = menuSearchStasiun(noStasiun1);
+                        if (st1 != null) {
+                            r.setStasiun1(st1);
+                        } else {
+                            System.out.println("Stasiun tidak ditemukan!");
+                            System.out.println();
+                        }
+                    } while ((!check) || (st1 == null));
                     break;
                 case 3 :
-                    System.out.print("Masukkan Nomor Stasiun 2 : ");
-                    noStasiun2 = s1.nextInt();
-                    Stasiun st2 = menuSearchStasiun(noStasiun2);
-                    if (st2 != null) {
-                        r.setStasiun2(st2);
-                    }
+                    Stasiun st2 = null;
+                    do {
+                        daftarStasiun.forEach((Stasiun o) -> System.out.println(o));
+                        System.out.println();
+                        check = false;
+                        System.out.print("Masukkan Nomor Stasiun 2 : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            noStasiun2 = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                        st2 = menuSearchStasiun(noStasiun2);
+                        if (st2 != null) {
+                            r.setStasiun2(st2);
+                        } else {
+                            System.out.println("Stasiun tidak ditemukan!");
+                            System.out.println();
+                        }
+                    } while ((!check) || (st2 == null));
                     break;
                 case 4 :
                     daftarKereta.forEach((Kereta o) -> o.toString());
@@ -463,64 +705,109 @@ public class Application {
     }
     
     public void tampilMenuEditGerbong () {
-        int pilih;
+        boolean check = false;
+        int pilih = 0;
         do {            
             
             Scanner s1 = new Scanner(System.in);
             Scanner s2 = new Scanner(System.in);
-            int kapasitas, tipe;
-            long harga;
+            int kapasitas = 0, tipe = 0;
+            long harga = 0;
             System.out.println("Edit Data Gerbong");
             System.out.println("1. Tambahkan Gerbong Baru");
             System.out.println("2. Lihat Daftar Gerbong");
             System.out.println("0. Kembali ke Menu Utama");
             System.out.println();
             System.out.print("Pilihan menu : ");
-            pilih = s1.nextInt();
+            try {
+                s1 = new Scanner(System.in);
+                pilih = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Pilihan Salah!");
+                continue;
+            }
             System.out.println();
             switch (pilih) {
                 case 1 :
+                {
                     System.out.println("Tambahkan Gerbong Baru");
-                    System.out.println("Kapasitas : ");
-                    kapasitas = s1.nextInt();
-                    System.out.println("Tipe Gerbong (1 = Eksekutif, 2 = Bisnis, 3 = Ekonomi)");
-                    tipe = s1.nextInt();
-                    System.out.println("Harga Tiket : ");
-                    harga = s1.nextLong();
+                    do {                        
+                        check = false;
+                        System.out.print("Kapasitas : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            kapasitas = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                    } while (!check);
+                    do {                        
+                        check = false;
+                        System.out.print("Tipe Gerbong (1 = Eksekutif, 2 = Bisnis, 3 = Ekonomi) : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            tipe = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                        if ((tipe != 1) && (tipe != 2) && (tipe != 3)) {
+                            System.out.println("Tipe Gerbong Salah!");
+                            check = false;
+                        }
+                    } while (!check);
+                    do {                        
+                        check = false;
+                        System.out.print("Harga Tiket : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            harga = s1.nextLong();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                    } while (!check);
                     menuAddGerbong(kapasitas, tipe, harga);
                     break;
+                }
                 case 2 :
                     menuViewAllGerbong();
                     break;
                 case 0 :
                     System.out.println("Selesai!");
+                    check = true;
                     break;
                 default : 
                     System.out.println("Pilihan Salah");
                     break;
             }
-        } while (pilih != 0);
+        } while ((pilih != 0) || (!check));
     }
     
     public void tampilMenuCreateTiket () {
-        
+        boolean check = false;
         Scanner s1 = new Scanner(System.in);
         Scanner s2 = new Scanner(System.in);
         Scanner s3 = new Scanner(System.in);
         
         GregorianCalendar date = new GregorianCalendar(0, 0, 0);
         String namaRute, namaKereta;
-        int idGerbong = 0, day, month, year, jmlTiket;
+        int idGerbong = 0, day, month, year, jmlTiket = 0;
         long inpDate = 0, hargaTiket = 0;
-        boolean checkDate, checkHarga = false;
+        boolean checkDate = false, checkHarga = false;
         Rute r;
         Kereta k;
-        Gerbong g;
+        Gerbong g = null;
         System.out.println("Daftar Rute");
         daftarRute.forEach((Rute o) -> o.toString());
         System.out.println();
         do {            
-            System.out.println("Masukkan Nama Rute yg akan dibuat tiketnya");
+            System.out.print("Masukkan Nama Rute yg akan dibuat tiketnya : ");
             namaRute = s2.nextLine();            
             r = menuSearchRute(namaRute);
             if (r == null) {
@@ -529,13 +816,13 @@ public class Application {
         } while (r == null);
         System.out.println();
         r.tampil();
-        System.out.println("Daftar Kereta yang Tersedia dalam Rute");
-        r.printDaftarKereta();
+//        System.out.println("Daftar Kereta yang Tersedia dalam Rute");
+//        r.printDaftarKereta();
         System.out.println();
         do {            
-            System.out.println("Masukkan nama kereta yg akan dibuat tiketnya");
+            System.out.print("Masukkan nama kereta yg akan dibuat tiketnya : ");
             namaKereta = s2.nextLine();
-            k = menuSearchKereta(namaKereta);
+            k = r.getKereta(namaKereta);
             if (k == null) {
                 System.out.println("Kereta yang anda cari tidak ada");
             }
@@ -544,25 +831,33 @@ public class Application {
         k.tampilDetil();
         System.out.println();
         do {            
-            System.out.println("Silahkan masukkan ID gerbong yang anda inginkan");
+            check = false;
+            System.out.println("Silahkan masukkan ID gerbong yang anda inginkan : ");
             try {
+                s1 = new Scanner(System.in);
                 idGerbong = s1.nextInt();
-            } catch (InputMismatchException e) {
+                check = true;
+            } catch (Exception e) {
                 System.out.println("Input Salah");
+                continue;
             }
             g = k.getGerbong(idGerbong);
             if (g == null) {
                 System.out.println("Gerbong yang anda cari tidak tersedia");
             }
-        } while (g == null);
+        } while ((g == null) || (!check));
         g.toString();
         System.out.println();
         do {            
+            check = false;
             System.out.println("Masukkan tanggal pemberangkatan kereta (YYYYMMDD): ");
             try {
-                inpDate = s3.nextLong();            
+                s3 = new Scanner(System.in);
+                inpDate = s3.nextLong();
+                check = true;
             } catch (Exception e) {
                 System.out.println("Format salah");
+                continue;
             }
             checkDate = isValidFormat("yyyyMMdd", inpDate);
             year = (int) (long) inpDate/1000;
@@ -574,36 +869,24 @@ public class Application {
                 date.getTime();
             } catch (Exception e) {
                 System.out.println("Tanggal tidak valid");
+                continue;
             }
 //            if ((year <= 0) || (year > 2016)) {
 //                if ((month <= 0) || (month > 12)) {
 //                    if ((month )
 //                }
 //            }
-        } while (!checkDate);
-        do {            
-            System.out.println("Masukkan Harga Tiket");
-            try {
-                hargaTiket = s3.nextLong();
-                checkHarga = true;
-            } catch (Exception e) {
-                System.out.println("Input Salah");
-            }            
-        } while (!checkHarga);
-        do {            
-            System.out.print("Masukkan jumlah tiket yang akan ditambahkan : ");
-            jmlTiket = s1.nextInt();
-            if (jmlTiket <= g.getKapasitas()) {
-                for (int i = 0; i < jmlTiket; i++) {
-                    r.createTicket(date, g.getTipeGerbong(), hargaTiket, k, g);
-                }
-            }
-        } while (jmlTiket > g.getKapasitas());
+        } while ((!checkDate) || (!check));
+        
+        for (int i = 0; i < g.getKapasitas(); i++) {
+            r.createTicket(date, g.getTipeGerbong(), hargaTiket, k, g);
+        }
     }
         
     public void mainMenu () {
+        boolean check = false;
         Scanner s1 = new Scanner(System.in);
-        int pilihMain;
+        int pilihMain = 0;
         do {
             Scanner s2 = new Scanner(System.in);
             int pilsub;
@@ -616,7 +899,17 @@ public class Application {
             System.out.println("0. Exit");
             System.out.println();
             System.out.print("Pilihan menu : ");
-            pilihMain = s1.nextInt();
+            do {                
+                check = false;
+                try {
+                    s1 = new Scanner(System.in);
+                    pilihMain = s1.nextInt();
+                    check = true;
+                } catch (Exception e) {
+                    System.out.println("Pilihan Salah!");
+                    continue;
+                }
+            } while (!check);
             System.out.println();
             switch (pilihMain) {
                 case 1 :
@@ -641,7 +934,7 @@ public class Application {
                     System.out.println("Pilihan Salah");
                     break;
             }
-        } while (pilihMain != 0);
+        } while ((pilihMain != 0) || (!check));
         
     }
 

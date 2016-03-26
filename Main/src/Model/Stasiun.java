@@ -5,11 +5,13 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rizza
  */
-public class Stasiun {
+public class Stasiun implements Serializable {
     private String namaStasiun, alamat, kota, singkatan;
     private int nomorStasiun, jumlahJalur, tahunPbangunan;
     
@@ -134,5 +136,10 @@ public class Stasiun {
         System.out.println("Jumlah Jalur : "+this.jumlahJalur);
         System.out.println("Tahun Pembangunan : "+this.tahunPbangunan);
         System.out.println();
+    }
+    
+    @Override
+    public String toString() {
+        return "No Stasiun : "+this.nomorStasiun+", Nama Stasiun : "+this.namaStasiun+", Kota : "+this.kota;
     }
 }

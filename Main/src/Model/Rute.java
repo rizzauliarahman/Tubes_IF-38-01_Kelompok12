@@ -1,6 +1,7 @@
-
 package Model;
+
 import java.util.*;
+import java.io.Serializable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,17 +13,16 @@ import java.util.*;
  *
  * @author Rizza
  */
-public class Rute {
+public class Rute implements Serializable {
     private String namaRute;
     private Stasiun stasiun1;
     private Stasiun stasiun2;
-    Tiket[] daftarTiketDibeli;
+    List<Tiket> daftarTiket = new ArrayList<Tiket>();
     List<Kereta> daftarKereta =  new ArrayList<Kereta>();
     private int nTiket, nKereta;
 
-    public Rute(String namaRute, int maxTiket) {
+    public Rute(String namaRute) {
         this.namaRute = namaRute;
-        daftarTiketDibeli = new Tiket[maxTiket];
     }
 
     /**
@@ -75,12 +75,17 @@ public class Rute {
     }
     
     public void createTicket(GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
-        daftarTiketDibeli[nTiket] = new Tiket(tanggal, tipeTiket, hargaTiket, kereta, gerbong);
+        Tiket t = new Tiket(tanggal, tipeTiket, hargaTiket, kereta, gerbong);
+        daftarTiket.add(t);
         nTiket++;
     }
     
     public void addKereta (Kereta k) {
         daftarKereta.add(k);
+    }
+    
+    public Kereta getKereta (String namaKereta) {
+        return daftarKereta.stream().filter((Kereta o) -> (o.getNamaKereta().toUpperCase()).equals((namaKereta).toUpperCase())).findFirst().orElse(null);
     }
     
     /**
@@ -89,7 +94,7 @@ public class Rute {
      * @return
      */
     public Tiket getTiket (int idx) {
-        return daftarTiketDibeli[idx];
+        return daftarTiket.get(idx);
     }
     
     public void tampil() {
@@ -98,11 +103,11 @@ public class Rute {
         this.stasiun1.tampil();
         System.out.println("Stasiun 2");
         this.stasiun2.tampil();
-        System.out.println("Jumlah Tiket : "+daftarTiketDibeli.length);
-        System.out.println("Jumlah Tiket Terbeli : "+nTiket);
+        System.out.println("Jumlah Tiket Total : "+daftarTiket.size());
+        daftarKereta.forEach((Kereta o) -> System.out.println(o));
     }
     
     public void printDaftarKereta () {
-        daftarKereta.forEach((Kereta o) -> o.toString());
+        daftarKereta.forEach((Kereta o) -> System.out.println(o));
     }
 }

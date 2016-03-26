@@ -1,5 +1,6 @@
-
 package Model;
+
+import java.io.Serializable;
 import java.util.*;
 
 /*
@@ -13,7 +14,7 @@ import java.util.*;
  *
  * @author Rizza
  */
-public class Tiket {
+public class Tiket implements Serializable {
     private int tipeTiket, idTiket;
     private long hargaTiket;
     private String jenisTiket;

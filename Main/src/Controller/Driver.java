@@ -5,15 +5,28 @@
  */
 package Controller;
 
+import java.util.*;
+import java.io.*;
 import View.*;
+import Model.*;
+import java.io.ObjectOutputStream;
 
 /**
  *
  * @author Rizza
  */
-public class Driver {
-    public static void main(String[] args) {
+public class Driver implements Serializable {
+    public static void main(String[] args) throws Exception {
         Application a = new Application();
+        a.daftarStasiun = (List<Stasiun>) a.readFile("Stasiun.txt");
+        a.daftarRute = (List<Rute>) a.readFile("Rute.txt");
+        a.daftarKereta = (List<Kereta>) a.readFile("Kereta.txt");
+        a.daftarGerbong = (List<Gerbong>) a.readFile("Gerbong.txt");
         a.mainMenu();
+        a.writeFile(a.daftarStasiun, "Stasiun.txt");
+        a.writeFile(a.daftarRute, "Rute.txt");
+        a.writeFile(a.daftarKereta, "Kereta.txt");
+        a.writeFile(a.daftarGerbong, "Gerbong.txt");
+        a.writeFile(Gerbong.getnGerbong(), "objGerbong.txt");
     }
 }

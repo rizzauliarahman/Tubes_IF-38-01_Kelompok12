@@ -5,13 +5,14 @@
  */
 package Model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author Rizza
  */
-public class Kereta {
+public class Kereta implements Serializable {
     private String namaKereta, jenisKereta;
     private int idKereta, tipeKereta, nGerbong;
     private static int nKereta = 5000;
@@ -110,7 +111,7 @@ public class Kereta {
         System.out.println("Jenis Kereta : "+this.jenisKereta);
         System.out.println("ID : "+this.idKereta);
         System.out.println("Jumlah Gerbong : "+this.nGerbong);
-        daftarGerbong.forEach((Gerbong o) -> o.toString());
+        daftarGerbong.forEach((Gerbong o) -> System.out.println(o));
     }
     
     @Override
