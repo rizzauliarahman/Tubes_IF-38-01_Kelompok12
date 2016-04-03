@@ -23,6 +23,14 @@ public class Tiket implements Serializable {
     private Kereta kereta;
     private Gerbong gerbong;
 
+    public static int getnTiket() {
+        return nTiket;
+    }
+
+    public static void setnTiket(int nTiket) {
+        Tiket.nTiket = nTiket;
+    }
+
     public Tiket(GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
         this.tipeTiket = tipeTiket;
         this.hargaTiket = hargaTiket;

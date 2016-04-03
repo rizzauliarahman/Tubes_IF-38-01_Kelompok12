@@ -82,8 +82,12 @@ public class Kereta implements Serializable {
     /**
      * @return the nKereta
      */
-    public int getnKereta() {
+    public static int getnKereta() {
         return nKereta;
+    }
+    
+    public static void setnKereta(int nKereta) {
+        Kereta.nKereta = nKereta;
     }
     
     public void addGerbong (Gerbong g) {
@@ -97,6 +101,7 @@ public class Kereta implements Serializable {
     
     public void removeGerbong (int id) {
           daftarGerbong.removeIf(o -> o.getIdGerbong() == id);
+          nGerbong--;
     }
     
     public void tampil () {

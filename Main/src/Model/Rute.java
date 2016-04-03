@@ -2,6 +2,7 @@ package Model;
 
 import java.util.*;
 import java.io.Serializable;
+import java.util.stream.Collectors;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -74,6 +75,18 @@ public class Rute implements Serializable {
         return nTiket;
     }
     
+    public boolean checkTicket (GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
+        daftarTiket.stream().distinct();
+        Tiket[] t;
+        List<Tiket> searchByDate = daftarTiket.stream().filter((Tiket o) -> o.getTglBerangkat().equals(tanggal)).collect(Collectors.toList());
+        Tiket searchByGerbong = searchByDate.stream().filter((Tiket o) -> o.getGerbong().equals(gerbong)).findFirst().orElse(null);
+        if ((searchByGerbong != null)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public void createTicket(GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
         Tiket t = new Tiket(tanggal, tipeTiket, hargaTiket, kereta, gerbong);
         daftarTiket.add(t);
@@ -109,5 +122,10 @@ public class Rute implements Serializable {
     
     public void printDaftarKereta () {
         daftarKereta.forEach((Kereta o) -> System.out.println(o));
+    }
+    
+    @Override
+    public String toString () {
+        return "Nama Rute : "+this.namaRute+", Stasiun 1 : "+this.stasiun1.getNamaStasiun()+", Stasiun 2 : "+this.stasiun2.getNamaStasiun();
     }
 }

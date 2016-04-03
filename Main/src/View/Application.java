@@ -6,12 +6,7 @@
 package View;
 
 import Model.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.sql.Struct;
+import java.io.*;
 import java.util.*;
 import java.text.*;
 
@@ -34,7 +29,11 @@ public class Application {
     }
     
     public void writeFile (List o, String filename) throws Exception {
-        try (FileOutputStream fout = new FileOutputStream(filename)){
+        File file = new File(filename);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try (FileOutputStream fout = new FileOutputStream(file)){
             ObjectOutputStream oout = new ObjectOutputStream(fout);
             oout.writeObject(o);
             oout.close();
@@ -42,9 +41,9 @@ public class Application {
     }
     
     public Object readFile (String filename) throws Exception {
-        Object o;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
-            o = (ArrayList) ois.readObject();
+        Object o = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {          
+            o = ois.readObject();
             ois.close();
         }
         return o;
@@ -303,7 +302,14 @@ public class Application {
                     do {                        
                         check = false;
                         System.out.print("Masukkan Tahun Pembangunan Stasiun : ");
-                        tahun = s1.nextInt();
+                        try {
+                            s1 = new Scanner(System.in);
+                            tahun = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
                         s.setTahunPbangunan(tahun);
                     } while (!check);
                     break;
@@ -615,6 +621,7 @@ public class Application {
             System.out.println("2. Ubah Stasiun 1");
             System.out.println("3. Ubah Stasiun 2");
             System.out.println("4. Tambahkan Kereta yang Tersedia");
+            System.out.println("0. Kembali ke Menu Sebelumnya");
             System.out.println();
             System.out.print("Pilihan Menu : ");
             try {
@@ -711,7 +718,8 @@ public class Application {
             
             Scanner s1 = new Scanner(System.in);
             Scanner s2 = new Scanner(System.in);
-            int kapasitas = 0, tipe = 0;
+            Scanner s3 = new Scanner(System.in);
+            int kapasitas = 0, tipe = 0, jmlGerbong = 0;
             long harga = 0;
             System.out.println("Edit Data Gerbong");
             System.out.println("1. Tambahkan Gerbong Baru");
@@ -764,15 +772,29 @@ public class Application {
                         check = false;
                         System.out.print("Harga Tiket : ");
                         try {
-                            s1 = new Scanner(System.in);
-                            harga = s1.nextLong();
+                            s3 = new Scanner(System.in);
+                            harga = s3.nextLong();
                             check = true;
                         } catch (Exception e) {
                             System.out.println("Input Salah!");
                             continue;
                         }
                     } while (!check);
-                    menuAddGerbong(kapasitas, tipe, harga);
+                    do {
+                        check = false;
+                        System.out.print("Jumlah Gerbong sejenis yang ingin ditambahkan : ");
+                        try {
+                            s1 = new Scanner(System.in);
+                            jmlGerbong = s1.nextInt();
+                            check = true;
+                        } catch (Exception e) {
+                            System.out.println("Input Salah!");
+                            continue;
+                        }
+                    } while (!check);
+                    for (int i = 0; i < jmlGerbong; i++) {                        
+                        menuAddGerbong(kapasitas, tipe, harga);
+                    }
                     break;
                 }
                 case 2 :
@@ -804,7 +826,7 @@ public class Application {
         Kereta k;
         Gerbong g = null;
         System.out.println("Daftar Rute");
-        daftarRute.forEach((Rute o) -> o.toString());
+        daftarRute.forEach((Rute o) -> System.out.println(o));
         System.out.println();
         do {            
             System.out.print("Masukkan Nama Rute yg akan dibuat tiketnya : ");
@@ -832,25 +854,7 @@ public class Application {
         System.out.println();
         do {            
             check = false;
-            System.out.println("Silahkan masukkan ID gerbong yang anda inginkan : ");
-            try {
-                s1 = new Scanner(System.in);
-                idGerbong = s1.nextInt();
-                check = true;
-            } catch (Exception e) {
-                System.out.println("Input Salah");
-                continue;
-            }
-            g = k.getGerbong(idGerbong);
-            if (g == null) {
-                System.out.println("Gerbong yang anda cari tidak tersedia");
-            }
-        } while ((g == null) || (!check));
-        g.toString();
-        System.out.println();
-        do {            
-            check = false;
-            System.out.println("Masukkan tanggal pemberangkatan kereta (YYYYMMDD): ");
+            System.out.print("Masukkan tanggal pemberangkatan kereta (YYYYMMDD): ");
             try {
                 s3 = new Scanner(System.in);
                 inpDate = s3.nextLong();
@@ -871,15 +875,33 @@ public class Application {
                 System.out.println("Tanggal tidak valid");
                 continue;
             }
-//            if ((year <= 0) || (year > 2016)) {
-//                if ((month <= 0) || (month > 12)) {
-//                    if ((month )
-//                }
-//            }
         } while ((!checkDate) || (!check));
-        
-        for (int i = 0; i < g.getKapasitas(); i++) {
-            r.createTicket(date, g.getTipeGerbong(), hargaTiket, k, g);
+        System.out.println();
+        do {            
+            check = false;
+            System.out.print("Silahkan masukkan ID gerbong yang anda inginkan : ");
+            try {
+                s1 = new Scanner(System.in);
+                idGerbong = s1.nextInt();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Input Salah");
+                continue;
+            }
+            g = k.getGerbong(idGerbong);
+            if (g == null) {
+                System.out.println("Gerbong yang anda cari tidak tersedia");
+            }
+        } while ((g == null) || (!check));
+        g.toString();
+        System.out.println();
+        boolean checkTiket = r.checkTicket(date, g.getTipeGerbong(), hargaTiket, k, g);
+        if (!checkTiket) {
+            System.out.println("Tiket untuk Gerbong ini sudah dibuat!");
+        } else {
+            for (int i = 0; i < g.getKapasitas(); i++) {
+                r.createTicket(date, g.getTipeGerbong(), hargaTiket, k, g);
+            }            
         }
     }
         
