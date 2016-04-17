@@ -9,6 +9,7 @@ import Model.*;
 import java.io.*;
 import java.util.*;
 import java.text.*;
+import java.util.stream.Stream;
 
 /**
  *
@@ -19,12 +20,20 @@ public class Application {
     public List<Kereta> daftarKereta = new ArrayList<Kereta>();
     public List<Rute> daftarRute = new ArrayList<Rute>();
     public List<Gerbong> daftarGerbong = new ArrayList<Gerbong>();
+    public Vector Herbong;
     
     public void writeFile (Object o, String filename) throws Exception {
         try (FileOutputStream fout = new FileOutputStream(filename)){
             ObjectOutputStream oout = new ObjectOutputStream(fout);
             oout.writeObject(o);
             oout.close();
+        }
+    }
+    
+    public void createVectorGerbong() {
+        Herbong = new Vector();
+        for (Gerbong g : daftarGerbong) {
+            Stream<Gerbong> strGerbong = daftarGerbong.stream().filter((Gerbong g2) -> g2.equals(g));
         }
     }
     
@@ -86,8 +95,8 @@ public class Application {
         daftarKereta.remove(k);
     }
     
-    public void menuAddGerbong (int kapasitas, int tipe, long harga) {
-        Gerbong g = new Gerbong(kapasitas,tipe,harga);
+    public void menuAddGerbong (int kapasitas, int tipe) {
+        Gerbong g = new Gerbong(kapasitas,tipe);
         daftarGerbong.add(g);
     }
     
@@ -233,8 +242,6 @@ public class Application {
             System.out.println("3. Ubah Nomor Stasiun");
             System.out.println("4. Ubah Alamat Stasiun");
             System.out.println("5. Ubah Kota Lokasi Stasiun");
-            System.out.println("6. Ubah Jumlah Jalur");
-            System.out.println("7. Ubah Tahun Pembangunan");
             System.out.println("0. Kembali ke Menu Utama");
             System.out.println();
             System.out.print("Pilihan Menu : ");
@@ -282,36 +289,6 @@ public class Application {
                     System.out.print("Masukkan Kota Lokasi Stasiun : ");
                     kota = s2.nextLine();
                     s.setKota(kota);
-                    break;
-                case 6 :
-                    do {                        
-                        check = false;
-                        System.out.print("Masukkan Jumlah Jalur Dalam Stasiun : ");
-                        try {
-                            s1 = new Scanner(System.in);
-                            jmlJalur = s1.nextInt();
-                            check = true;
-                        } catch (Exception e) {
-                            System.out.println("Pilihan Salah!");
-                            continue;
-                        }
-                        s.setJumlahJalur(jmlJalur);
-                    } while (!check);
-                    break;
-                case 7 :
-                    do {                        
-                        check = false;
-                        System.out.print("Masukkan Tahun Pembangunan Stasiun : ");
-                        try {
-                            s1 = new Scanner(System.in);
-                            tahun = s1.nextInt();
-                            check = true;
-                        } catch (Exception e) {
-                            System.out.println("Input Salah!");
-                            continue;
-                        }
-                        s.setTahunPbangunan(tahun);
-                    } while (!check);
                     break;
                 case 0 :
                     System.out.println("Selesai!");
@@ -493,7 +470,7 @@ public class Application {
                         }
                         a = k.getGerbong(idGerbong);
                         if (a != null) {
-                            menuAddGerbong(a.getKapasitas(), a.getTipeGerbong(), a.getHarga());
+                            menuAddGerbong(a.getKapasitas(), a.getTipeGerbong());
                             k.removeGerbong(idGerbong);
                         } else {
                             System.out.println("Gerbong dengan ID tersebut tidak ada");
@@ -791,10 +768,8 @@ public class Application {
                             System.out.println("Input Salah!");
                             continue;
                         }
-                    } while (!check);
-                    for (int i = 0; i < jmlGerbong; i++) {                        
-                        menuAddGerbong(kapasitas, tipe, harga);
-                    }
+                    } while (!check);                
+                    menuAddGerbong(kapasitas, tipe);
                     break;
                 }
                 case 2 :
@@ -951,7 +926,7 @@ public class Application {
                     break;
                 case 0 :
                     System.out.println("Selesai!");
-                    break;
+                    System.exit(0);
                 default :
                     System.out.println("Pilihan Salah");
                     break;

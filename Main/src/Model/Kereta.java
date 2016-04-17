@@ -16,7 +16,7 @@ public class Kereta implements Serializable {
     private String namaKereta, jenisKereta;
     private int idKereta, tipeKereta, nGerbong;
     private static int nKereta = 5000;
-    List<Gerbong> daftarGerbong = new ArrayList<Gerbong>();
+    List<Gerbong> daftarGerbong = new ArrayList<>();
 
     public Kereta(String namaKereta, int tipeKereta) {
         this.namaKereta = namaKereta;
@@ -56,15 +56,19 @@ public class Kereta implements Serializable {
         return idKereta;
     }
 
-    /**
-     * set idKereta with the amount of nKereta and increment idKereta
-     * @param idKereta
-     */
     public void setIdKereta(int idKereta) {
         this.idKereta = nKereta;
         nKereta++;
     }
 
+    public void setJenisKereta(int tipe) {
+        if (tipe == 1) {
+            jenisKereta = "Kereta Listrik";
+        } else jenisKereta = "Kereta Diesel";
+    }
+
+    
+    
     /**
      * @return the tipeKereta
      */
@@ -90,6 +94,10 @@ public class Kereta implements Serializable {
         Kereta.nKereta = nKereta;
     }
     
+    public List<Gerbong> getListGerbong() {
+        return daftarGerbong;
+    }
+    
     public void addGerbong (Gerbong g) {
         daftarGerbong.add(g);
         nGerbong++;
@@ -102,6 +110,10 @@ public class Kereta implements Serializable {
     public void removeGerbong (int id) {
           daftarGerbong.removeIf(o -> o.getIdGerbong() == id);
           nGerbong--;
+    }
+    
+    public int getJmlGerbong () {
+        return daftarGerbong.size();
     }
     
     public void tampil () {

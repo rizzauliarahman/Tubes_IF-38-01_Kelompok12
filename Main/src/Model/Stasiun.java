@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Stasiun implements Serializable {
     private String namaStasiun, alamat, kota, singkatan;
-    private int nomorStasiun, jumlahJalur, tahunPbangunan;
+    private int nomorStasiun;
     
     public Stasiun (String name, String singkatan, int nomor) {
         namaStasiun = name;
@@ -91,34 +91,6 @@ public class Stasiun implements Serializable {
         this.nomorStasiun = nomorStasiun;
     }
 
-    /**
-     * @return the jumlahJalur
-     */
-    public int getJumlahJalur() {
-        return jumlahJalur;
-    }
-
-    /**
-     * @param jumlahJalur the jumlahJalur to set
-     */
-    public void setJumlahJalur(int jumlahJalur) {
-        this.jumlahJalur = jumlahJalur;
-    }
-
-    /**
-     * @return the tahunPbangunan
-     */
-    public int getTahunPbangunan() {
-        return tahunPbangunan;
-    }
-
-    /**
-     * @param tahunPbangunan the tahunPbangunan to set
-     */
-    public void setTahunPbangunan(int tahunPbangunan) {
-        this.tahunPbangunan = tahunPbangunan;
-    }
-
     public void tampil() {
         System.out.println("Nama Stasiun : "+this.namaStasiun);
         System.out.println("Nomor Stasiun : "+this.nomorStasiun);
@@ -133,8 +105,6 @@ public class Stasiun implements Serializable {
         System.out.println("Nomor Stasiun : "+this.nomorStasiun);
         System.out.println("Alamat : "+this.alamat);
         System.out.println("Kota : "+this.kota);
-        System.out.println("Jumlah Jalur : "+this.jumlahJalur);
-        System.out.println("Tahun Pembangunan : "+this.tahunPbangunan);
         System.out.println();
     }
     

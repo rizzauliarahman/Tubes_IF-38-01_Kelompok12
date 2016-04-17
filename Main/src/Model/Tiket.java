@@ -32,7 +32,7 @@ public class Tiket implements Serializable {
     }
 
     public Tiket(GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
-        this.tipeTiket = tipeTiket;
+        this.tipeTiket = gerbong.getTipeGerbong();
         this.hargaTiket = hargaTiket;
         this.tglBerangkat = tanggal;
         this.kereta = kereta;

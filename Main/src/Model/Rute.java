@@ -3,6 +3,7 @@ package Model;
 import java.util.*;
 import java.io.Serializable;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -76,9 +77,9 @@ public class Rute implements Serializable {
     }
     
     public boolean checkTicket (GregorianCalendar tanggal, int tipeTiket, long hargaTiket, Kereta kereta, Gerbong gerbong) {
-        daftarTiket.stream().distinct();
+        Stream<Tiket> daftTiketDistinct = daftarTiket.stream().distinct();
         Tiket[] t;
-        List<Tiket> searchByDate = daftarTiket.stream().filter((Tiket o) -> o.getTglBerangkat().equals(tanggal)).collect(Collectors.toList());
+        List<Tiket> searchByDate = daftTiketDistinct.filter((Tiket o) -> o.getTglBerangkat().equals(tanggal)).collect(Collectors.toList());
         Tiket searchByGerbong = searchByDate.stream().filter((Tiket o) -> o.getGerbong().equals(gerbong)).findFirst().orElse(null);
         if ((searchByGerbong != null)) {
             return false;
@@ -101,11 +102,6 @@ public class Rute implements Serializable {
         return daftarKereta.stream().filter((Kereta o) -> (o.getNamaKereta().toUpperCase()).equals((namaKereta).toUpperCase())).findFirst().orElse(null);
     }
     
-    /**
-     *
-     * @param idx
-     * @return
-     */
     public Tiket getTiket (int idx) {
         return daftarTiket.get(idx);
     }

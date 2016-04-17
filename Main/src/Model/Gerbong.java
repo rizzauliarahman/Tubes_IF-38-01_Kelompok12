@@ -12,10 +12,9 @@ import java.io.Serializable;
  * @author Rizza
  */
 public class Gerbong implements Serializable {
-    private int kapasitas, tipeGerbong, idGerbong;
+    private int kapasitas, tipeGerbong, idGerbong, jmlGerbong;
     private String jenisGerbong;
     private static int nGerbong = 1000;
-    private long harga;
 
     public static int getnGerbong() {
         return nGerbong;
@@ -25,7 +24,7 @@ public class Gerbong implements Serializable {
         Gerbong.nGerbong = nGerbong;
     }
     
-    public Gerbong (int kapasitas, int tipe, long harga) {
+    public Gerbong (int kapasitas, int tipe) {
         tipeGerbong = tipe;
         if (tipeGerbong == 1) {
             jenisGerbong = "Eksekutif";
@@ -36,16 +35,7 @@ public class Gerbong implements Serializable {
         }
         idGerbong = nGerbong;
         this.kapasitas = kapasitas;
-        this.harga = harga;
         nGerbong++;
-    }
-
-    public long getHarga() {
-        return harga;
-    }
-
-    public void setHarga(long harga) {
-        this.harga = harga;
     }
 
     /**
@@ -98,7 +88,7 @@ public class Gerbong implements Serializable {
     }
 
     /**
-     * @set the idGerbong with the amount of nGerbong and increment nGerbong
+     * set the idGerbong with the amount of nGerbong and increment nGerbong
      */
     public void setIdGerbong() {
         this.idGerbong = nGerbong;
@@ -110,6 +100,18 @@ public class Gerbong implements Serializable {
         System.out.println("Jenis Gerbong : "+this.jenisGerbong);
         System.out.println("Kapasitas : "+this.kapasitas);
         System.out.println();
+    }
+
+    public int getJmlGerbong() {
+        return jmlGerbong;
+    }
+
+    public void setMinusJmlGerbong() {
+        this.jmlGerbong--;
+    }
+    
+    public void setPlusJmlGerbong() {
+        this.jmlGerbong++;
     }
     
     @Override
