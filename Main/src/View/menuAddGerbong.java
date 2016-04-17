@@ -162,6 +162,10 @@ public class menuAddGerbong extends javax.swing.JPanel {
         return (int) Integer.parseInt(txFieldKapasitas.getText());
     }
     
+    public int getTxFieldJumlah() {
+        return (int) Integer.parseInt(txFieldJumlah.getText());
+    }
+    
     public void addListener (ActionListener e) {
         btnBatal.addActionListener(e);
         btnTambah.addActionListener(e);

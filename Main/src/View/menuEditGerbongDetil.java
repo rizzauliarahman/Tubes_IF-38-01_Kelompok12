@@ -139,7 +139,7 @@ public class menuEditGerbongDetil extends javax.swing.JPanel {
         return btnBatal;
     }
 
-    public Object getBtnTambah() {
+    public Object getBtnSimpan() {
         return btnSimpan;
     }
 
@@ -147,8 +147,8 @@ public class menuEditGerbongDetil extends javax.swing.JPanel {
         return comBoxJenisGerbong.getSelectedIndex();
     }
 
-    public String getTxFieldKapasitas() {
-        return txFieldKapasitas.getText();
+    public int getTxFieldKapasitas() {
+        return Integer.parseInt(txFieldKapasitas.getText());
     }
     
     public void setComponentsData(Gerbong g) {

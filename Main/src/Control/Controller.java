@@ -274,10 +274,34 @@ public class Controller implements ActionListener {
             } else if (source.equals(edk.getBtnEditGerbong())) {
                 k = app.daftarKereta.stream().filter((Kereta o) -> o.getIdKereta() == edk.getTxFieldNoKereta()).findFirst().orElse(null);
                 currentView.setVisible(false);
-                menuEditGerbong2 eg = menu.getMenuEditGerbong2();
-                eg.setTableGerbong(k.getListGerbong());
-                currentView = eg;
+                menuEditGerbong2 eg2 = menu.getMenuEditGerbong2();
+                eg2.setTableGerbong(k.getListGerbong());
+                currentView = eg2;
                 currentView.setVisible(true);
+                if (currentView.equals(menu.getMenuEditGerbong2())) {
+                    eg2 = menu.getMenuEditGerbong2();
+                    if (source.equals(eg2.getBtnEdit())) {
+                        Gerbong g =  k.getGerbong(eg2.getTableGerbong());
+                        int idx = k.getListGerbong().indexOf(g);
+                        currentView.setVisible(false);
+                        menuEditGerbongDetil egd = menu.getMenuEditGerbongDetil();
+                        egd.setComponentsData(g);
+                        currentView = egd;
+                        currentView.setVisible(true);
+                        if (currentView.equals(menu.getMenuEditGerbongDetil())) {
+                            egd = menu.getMenuEditGerbongDetil();
+                            if (source.equals(egd.getBtnSimpan())) {
+                                g.setKapasitas(egd.getTxFieldKapasitas());
+                                g.setTipeGerbong(egd.getComBoxJenisGerbong()+1);
+                                k.getListGerbong().set(idx, g);
+                                currentView.setVisible(false);
+                                eg2 = menu.getMenuEditGerbong2();
+                                currentView = eg2;
+                                currentView.setVisible(true);
+                            }
+                        }
+                    }
+                }
             } else if (source.equals(edk.getBtnTambahGerbong())) {
                 k = app.daftarKereta.stream().filter((Kereta o) -> o.getIdKereta() == edk.getTxFieldNoKereta()).findFirst().orElse(null);
                 currentView.setVisible(false);
@@ -287,11 +311,29 @@ public class Controller implements ActionListener {
                 if (currentView.equals(menu.getMenuAddGerbong())) {
                     ag = menu.getMenuAddGerbong();
                     if (source.equals(ag.getBtnTambah())) {
-                        Gerbong g = new Gerbong(ag.getTxFieldKapasitas(), ag.getComBoxJenisGerbong()+1);
-                        
-                        
+                        try {
+                            Gerbong g = new Gerbong(ag.getTxFieldKapasitas(), ag.getComBoxJenisGerbong() + 1);
+                            for (int i = 0; i < ag.getTxFieldJumlah(); i++) {
+                                k.addGerbong(g);
+                            }
+                            JOptionPane.showMessageDialog(currentView, "Data Berhasil Disimpan!");
+                            app.writeFile(app.daftarKereta, "Kereta.dat");
+                            currentView.setVisible(false);
+                            menuEditKeretaDetil ekd = menu.getMenuEditKeretaDetil();
+                            currentView = ekd; 
+                            currentView.setVisible(true);
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(currentView, "Terjadi Error : "+e.getMessage());
+                        }
+                    } else if (source.equals(ag.getBtnBatal())) {
+                        currentView.setVisible(false);
+                        menuEditKeretaDetil ekd = menu.getMenuEditKeretaDetil();
+                        currentView = ekd;
+                        currentView.setVisible(true);
                     }
                 }
+            } else if (currentView.equals(menu.getMenuEditRute2())) {
+                
             }
         }
     }

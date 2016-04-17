@@ -158,8 +158,8 @@ public class menuEditGerbong2 extends javax.swing.JPanel {
         return btnHapus;
     }
 
-    public Object getTableGerbong() {
-        return tableGerbong.getValueAt(tableGerbong.getSelectedRow(), 0);
+    public int getTableGerbong() {
+        return (int) tableGerbong.getValueAt(tableGerbong.getSelectedRow(), 0);
     }
     
     public void setTableGerbong(List<Gerbong> list) {
