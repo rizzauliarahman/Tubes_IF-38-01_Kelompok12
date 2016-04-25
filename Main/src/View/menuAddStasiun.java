@@ -215,6 +215,14 @@ public class menuAddStasiun extends javax.swing.JPanel {
     public Object getBtnOk() {
         return btnOk;
     }
+    
+    public void reset() {
+        txFieldAlamat.setText("");
+        txFieldKota.setText("");
+        txFieldNamaStasiun.setText("");
+        txFieldNoStasiun.setText("");
+        txFieldSingkatan.setText("");
+    }
 
     public void addListener (ActionListener e) {
         txFieldAlamat.addActionListener(e);

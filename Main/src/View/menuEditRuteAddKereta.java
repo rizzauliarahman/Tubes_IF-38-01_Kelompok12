@@ -16,12 +16,12 @@ import javax.swing.JTable;
  *
  * @author Rizza
  */
-public class menuCreateTiket2 extends javax.swing.JPanel {
+public class menuEditRuteAddKereta extends javax.swing.JPanel {
 
     /**
      * Creates new form menuEditKereta2
      */
-    public menuCreateTiket2() {
+    public menuEditRuteAddKereta() {
         initComponents();
     }
 
@@ -38,13 +38,12 @@ public class menuCreateTiket2 extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKereta = new javax.swing.JTable();
-        btnBatal = new javax.swing.JButton();
-        btnPilih = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnSelesai = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Buat Tiket Perjalanan");
+        jLabel1.setText("Tambahkan Kereta");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,11 +109,9 @@ public class menuCreateTiket2 extends javax.swing.JPanel {
             tableKereta.getColumnModel().getColumn(3).setPreferredWidth(40);
         }
 
-        btnBatal.setText("Batal");
+        btnSelesai.setText("Selesai");
 
-        btnPilih.setText("Pilih");
-
-        jLabel2.setText("Silahkan Pilih Kereta yang Akan Dibuat Tiketnya :");
+        btnTambah.setText("Tambah");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,14 +124,12 @@ public class menuCreateTiket2 extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnPilih)
+                        .addComponent(btnTambah)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBatal)))
+                        .addComponent(btnSelesai)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,46 +138,42 @@ public class menuCreateTiket2 extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBatal)
-                    .addComponent(btnPilih))
+                    .addComponent(btnSelesai)
+                    .addComponent(btnTambah))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnPilih;
+    private javax.swing.JButton btnSelesai;
+    private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableKereta;
     // End of variables declaration//GEN-END:variables
 
-    public Object getBtnBatal() {
-        return btnBatal;
-    }
-
-    public Object getBtnPilih() {
-        return btnPilih;
+    public Object getBtnSelesai() {
+        return btnSelesai;
     }
 
     public Object getTableKereta() {
         return tableKereta;
     }
+    
+    public Object getBtnTambah() {
+        return btnTambah;
+    }
 
     public void addListener (ActionListener e) {
-        btnBatal.addActionListener(e);
-        btnPilih.addActionListener(e);
+        btnSelesai.addActionListener(e);
+        btnTambah.addActionListener(e);
     }
     
     public void addAdapter (MouseAdapter e) {

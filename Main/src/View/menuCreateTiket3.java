@@ -155,11 +155,18 @@ public class menuCreateTiket3 extends javax.swing.JPanel {
     public Object getBtnBuat() {
         return btnBuat;
     }
-    public Object getTableGerbong() {
-        return tableGerbong.getValueAt(tableGerbong.getSelectedRow(), 0);
+    public int getTableGerbong() {
+        return (int) tableGerbong.getValueAt(tableGerbong.getSelectedRow(), 0);
     }
     
     public void setTableGerbong(List<Gerbong> list) {
+        tableGerbong.clearSelection();
+        for (int i = 0; i < tableGerbong.getRowCount(); i++) {
+            tableGerbong.setValueAt("", i, 0);
+            tableGerbong.setValueAt("", i, 1);
+            tableGerbong.setValueAt("", i, 2);
+            tableGerbong.setValueAt("", i, 3);
+        }
         for (int i = 0; i < list.size(); i++) {
             tableGerbong.setValueAt(list.get(i).getIdGerbong(), i, 0);
             tableGerbong.setValueAt(list.get(i).getJenisGerbong(), i, 1);

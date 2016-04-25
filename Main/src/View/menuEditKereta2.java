@@ -99,7 +99,6 @@ public class menuEditKereta2 extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tableKereta.setColumnSelectionAllowed(true);
         tableKereta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableKereta);
         tableKereta.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -185,6 +184,7 @@ public class menuEditKereta2 extends javax.swing.JPanel {
     public void addListener (ActionListener e) {
         btnBatal.addActionListener(e);
         btnEdit.addActionListener(e);
+        btnHapus.addActionListener(e);
     }
     
     public void addAdapter (MouseAdapter e) {
@@ -196,6 +196,13 @@ public class menuEditKereta2 extends javax.swing.JPanel {
     }
     
     public void setTableKereta(List<Kereta> list) {
+        tableKereta.clearSelection();
+        for (int i = 0; i < tableKereta.getRowCount(); i++) {
+            tableKereta.setValueAt("", i, 0);
+            tableKereta.setValueAt("", i, 1);
+            tableKereta.setValueAt("", i, 2);
+            tableKereta.setValueAt("", i, 3);
+        }
         for (int i = 0; i < list.size(); i++) {
             tableKereta.setValueAt(list.get(i).getIdKereta(), i, 0);
             tableKereta.setValueAt(list.get(i).getNamaKereta(), i, 1);

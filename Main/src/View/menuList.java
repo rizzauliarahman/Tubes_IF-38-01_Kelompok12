@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 /**
  *
@@ -49,8 +50,13 @@ public class menuList extends javax.swing.JFrame {
         menuEditStasiun2 = new View.menuEditStasiun2();
         menuEditStasiunDetil = new View.menuEditStasiunDetil();
         menuTambahGerbongKereta = new View.menuTambahGerbongKereta();
+        menuEditRuteEditKereta = new View.menuEditRuteEditKereta();
+        menuEditRuteViewTiket = new View.menuEditRuteViewTiket();
+        menuEditRuteAddKereta = new View.menuEditRuteAddKereta();
+        menuCreateTiket4 = new View.menuCreateTiket4();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
         getContentPane().setLayout(new java.awt.CardLayout());
         getContentPane().add(mainMenu, "card2");
         getContentPane().add(menuAddGerbong, "card3");
@@ -72,6 +78,10 @@ public class menuList extends javax.swing.JFrame {
         getContentPane().add(menuEditStasiun2, "card19");
         getContentPane().add(menuEditStasiunDetil, "card20");
         getContentPane().add(menuTambahGerbongKereta, "card21");
+        getContentPane().add(menuEditRuteEditKereta, "card22");
+        getContentPane().add(menuEditRuteViewTiket, "card23");
+        getContentPane().add(menuEditRuteAddKereta, "card24");
+        getContentPane().add(menuCreateTiket4, "card25");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -85,22 +95,7 @@ public class menuList extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -120,6 +115,7 @@ public class menuList extends javax.swing.JFrame {
     private View.menuCreateTiket menuCreateTiket;
     private View.menuCreateTiket2 menuCreateTiket2;
     private View.menuCreateTiket3 menuCreateTiket3;
+    private View.menuCreateTiket4 menuCreateTiket4;
     private View.menuEditGerbong2 menuEditGerbong2;
     private View.menuEditGerbongDetil menuEditGerbongDetil;
     private View.menuEditKereta menuEditKereta;
@@ -127,7 +123,10 @@ public class menuList extends javax.swing.JFrame {
     private View.menuEditKeretaDetil menuEditKeretaDetil;
     private View.menuEditRute menuEditRute;
     private View.menuEditRute2 menuEditRute2;
+    private View.menuEditRuteAddKereta menuEditRuteAddKereta;
     private View.menuEditRuteDetil menuEditRuteDetil;
+    private View.menuEditRuteEditKereta menuEditRuteEditKereta;
+    private View.menuEditRuteViewTiket menuEditRuteViewTiket;
     private View.menuEditStasiun menuEditStasiun;
     private View.menuEditStasiun2 menuEditStasiun2;
     private View.menuEditStasiunDetil menuEditStasiunDetil;
@@ -197,6 +196,18 @@ public class menuList extends javax.swing.JFrame {
     public menuEditRuteDetil getMenuEditRuteDetil() {
         return menuEditRuteDetil;
     }
+    
+    public menuEditRuteEditKereta getMenuEditRuteEditKereta() {
+        return menuEditRuteEditKereta;
+    }
+    
+    public menuEditRuteViewTiket getMenuEditRuteViewTiket() {
+        return menuEditRuteViewTiket;
+    }
+    
+    public menuEditRuteAddKereta getMenuEditRuteAddKereta() {
+        return menuEditRuteAddKereta;
+    }
 
     public menuEditStasiun getMenuEditStasiun() {
         return menuEditStasiun;
@@ -213,6 +224,10 @@ public class menuList extends javax.swing.JFrame {
     public menuTambahGerbongKereta getMenuTambahGerbongKereta() {
         return menuTambahGerbongKereta;
     }
+    
+    public menuCreateTiket4 getMenuCreateTiket4() {
+        return menuCreateTiket4;
+    }
 
     public void addListener (ActionListener e) {
         mainMenu.addListener(e);
@@ -223,6 +238,7 @@ public class menuList extends javax.swing.JFrame {
         menuCreateTiket.addListener(e);
         menuCreateTiket2.addListener(e);
         menuCreateTiket3.addListener(e);
+        menuCreateTiket4.addListener(e);
         menuEditGerbong2.addListener(e);
         menuEditGerbongDetil.addListener(e);
         menuEditKereta.addListener(e);
@@ -231,10 +247,26 @@ public class menuList extends javax.swing.JFrame {
         menuEditRute.addListener(e);
         menuEditRute2.addListener(e);
         menuEditRuteDetil.addListener(e);
+        menuEditRuteEditKereta.addListener(e);
+        menuEditRuteViewTiket.addListener(e);
+        menuEditRuteAddKereta.addListener(e);
         menuEditStasiun.addListener(e);
         menuEditStasiun2.addListener(e);
         menuEditStasiunDetil.addListener(e);
         menuTambahGerbongKereta.addListener(e);
+    }
+    
+    public void addAdapter(MouseAdapter e) {
+        menuCreateTiket.addAdapter(e);
+        menuCreateTiket2.addAdapter(e);
+        menuCreateTiket3.addAdapter(e);
+        menuEditGerbong2.addAdapter(e);
+        menuEditKereta2.addAdapter(e);
+        menuEditRute2.addAdapter(e);
+        menuEditRuteEditKereta.addAdapter(e);
+        menuEditRuteViewTiket.addAdapter(e);
+        menuEditStasiun2.addAdapter(e);
+        menuTambahGerbongKereta.addAdapter(e);
     }
 
 }

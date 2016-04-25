@@ -188,6 +188,7 @@ public class menuEditStasiun2 extends javax.swing.JPanel {
     }
     
     public void setTabelStasiun(List<Stasiun> list) {
+        tableStasiun.clearSelection();
         for (int i = 0; i < tableStasiun.getRowCount(); i++) {
             tableStasiun.setValueAt("", i, 0);
             tableStasiun.setValueAt("", i, 1);
