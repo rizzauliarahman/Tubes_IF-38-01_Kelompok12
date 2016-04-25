@@ -136,6 +136,7 @@ public class menuList extends javax.swing.JFrame {
     public mainMenu getMainMenu() {
         return mainMenu;
     }
+    
 
     public menuAddGerbong getMenuAddGerbong() {
         return menuAddGerbong;
