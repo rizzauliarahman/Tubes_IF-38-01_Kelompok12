@@ -828,7 +828,7 @@ public class Application {
             }
             checkDate = isValidFormat("yyyyMMdd", inpDate);
             year = (int) (long) inpDate/1000;
-            month = (int) (long) (inpDate - (year*1000))/100;
+            month = ((int) (long) (inpDate - (year*1000))/100)-1;
             day = (int) (long) inpDate - ((year*1000) + (month*100));
             date.setLenient(false);
             date.set(year, month, day);

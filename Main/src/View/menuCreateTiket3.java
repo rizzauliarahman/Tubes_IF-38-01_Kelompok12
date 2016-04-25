@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -161,18 +162,14 @@ public class menuCreateTiket3 extends javax.swing.JPanel {
     
     public void setTableGerbong(List<Gerbong> list) {
         tableGerbong.clearSelection();
-        for (int i = 0; i < tableGerbong.getRowCount(); i++) {
-            tableGerbong.setValueAt("", i, 0);
-            tableGerbong.setValueAt("", i, 1);
-            tableGerbong.setValueAt("", i, 2);
-            tableGerbong.setValueAt("", i, 3);
-        }
+        String[] title = {"ID", "Jenis Gerbong", "Kapasitas"};
+        String[][] data = new String[list.size()][3];
         for (int i = 0; i < list.size(); i++) {
-            tableGerbong.setValueAt(list.get(i).getIdGerbong(), i, 0);
-            tableGerbong.setValueAt(list.get(i).getJenisGerbong(), i, 1);
-            tableGerbong.setValueAt(list.get(i).getKapasitas(), i, 2);
-            tableGerbong.setValueAt(list.get(i).getJmlGerbong(), i, 3);
+            data[i][0] = String.valueOf(list.get(i).getIdGerbong());
+            data[i][1] = list.get(i).getJenisGerbong();
+            data[i][2] = String.valueOf(list.get(i).getKapasitas());
         }
+        tableGerbong.setModel(new DefaultTableModel(data,title));
     }    
 
     public void addListener (ActionListener e) {

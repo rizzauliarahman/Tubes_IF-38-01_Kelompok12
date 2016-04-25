@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -189,16 +190,14 @@ public class menuEditStasiun2 extends javax.swing.JPanel {
     
     public void setTabelStasiun(List<Stasiun> list) {
         tableStasiun.clearSelection();
-        for (int i = 0; i < tableStasiun.getRowCount(); i++) {
-            tableStasiun.setValueAt("", i, 0);
-            tableStasiun.setValueAt("", i, 1);
-            tableStasiun.setValueAt("", i, 2);
-        }
+        String[] title = {"No Stasiun","Nama Stasiun","Kota"};
+        String[][] data = new String[list.size()][3];
         for (int i = 0; i < list.size(); i++) {
-            tableStasiun.setValueAt(list.get(i).getNomorStasiun(), i, 0);
-            tableStasiun.setValueAt(list.get(i).getNamaStasiun(), i, 1);
-            tableStasiun.setValueAt(list.get(i).getKota(), i, 2);
+            data[i][0] = String.valueOf(list.get(i).getNomorStasiun());
+            data[i][1] = list.get(i).getNamaStasiun();
+            data[i][2] = list.get(i).getKota();
         }
+        tableStasiun.setModel(new DefaultTableModel(data,title));
     }
     
     public int getSelectedStasiun() {

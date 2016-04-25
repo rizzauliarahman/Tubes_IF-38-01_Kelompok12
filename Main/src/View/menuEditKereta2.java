@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -197,18 +198,15 @@ public class menuEditKereta2 extends javax.swing.JPanel {
     
     public void setTableKereta(List<Kereta> list) {
         tableKereta.clearSelection();
-        for (int i = 0; i < tableKereta.getRowCount(); i++) {
-            tableKereta.setValueAt("", i, 0);
-            tableKereta.setValueAt("", i, 1);
-            tableKereta.setValueAt("", i, 2);
-            tableKereta.setValueAt("", i, 3);
-        }
+        String[] title = {"No Kereta","Nama Kereta","Jenis Kereta","Jml Gerbong"};
+        String[][] data = new String[list.size()][4];
         for (int i = 0; i < list.size(); i++) {
-            tableKereta.setValueAt(list.get(i).getIdKereta(), i, 0);
-            tableKereta.setValueAt(list.get(i).getNamaKereta(), i, 1);
-            tableKereta.setValueAt(list.get(i).getJenisKereta(), i, 2);
-            tableKereta.setValueAt(list.get(i).getJmlGerbong(), i, 3);
+            data[i][0] = String.valueOf(list.get(i).getIdKereta());
+            data[i][1] = list.get(i).getNamaKereta();
+            data[i][2] = list.get(i).getJenisKereta();
+            data[i][3] = String.valueOf(list.get(i).getJmlGerbong());
         }
+        tableKereta.setModel(new DefaultTableModel(data,title));
     }
 
 }

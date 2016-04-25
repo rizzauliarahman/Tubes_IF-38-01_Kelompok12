@@ -8,6 +8,7 @@ package View;
 import Model.Tiket;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -154,21 +155,16 @@ public class menuEditRuteViewTiket extends javax.swing.JPanel {
     
     public void setTableData(List<Tiket> list) {
         tableTiket.clearSelection();
-        for (int i = 0; i < tableTiket.getRowCount(); i++) {
-            tableTiket.setValueAt("", i, 0);
-            tableTiket.setValueAt("", i, 1);
-            tableTiket.setValueAt("", i, 2);
-            tableTiket.setValueAt("", i, 3);
-            tableTiket.setValueAt("", i, 4);
-            tableTiket.setValueAt("", i, 5);
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String[] title = {"ID","Kereta","Jenis Gerbong","Tanggal","Harga","Jml"};
+        String[][] data = new String[list.size()][6];
         for (int i = 0; i < list.size(); i++) {
-            tableTiket.setValueAt(list.get(i).getIdTiket(), i, 0);
-            tableTiket.setValueAt(list.get(i).getKereta().getNamaKereta(), i, 1);
-            tableTiket.setValueAt(list.get(i).getGerbong().getJenisGerbong(), i, 2);
-            tableTiket.setValueAt(list.get(i).getTglBerangkat().toString(), i, 3);
-            tableTiket.setValueAt(list.get(i).getHargaTiket(), i, 4);
-            tableTiket.setValueAt(list.get(i).getGerbong().getKapasitas(), i, 5);
+            data[i][0] = String.valueOf(list.get(i).getIdTiket());
+            data[i][1] = list.get(i).getKereta().getNamaKereta();
+            data[i][2] = list.get(i).getGerbong().getJenisGerbong();
+            data[i][3] = sdf.format((list.get(i).getTglBerangkat()).getTime());
+            data[i][4] = String.valueOf(list.get(i).getHargaTiket());
+            data[i][5] = String.valueOf(list.get(i).getGerbong().getKapasitas());
         }
     }
     
