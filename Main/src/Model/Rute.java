@@ -124,4 +124,13 @@ public class Rute implements Serializable {
     public String toString () {
         return "Nama Rute : "+this.namaRute+", Stasiun 1 : "+this.stasiun1.getNamaStasiun()+", Stasiun 2 : "+this.stasiun2.getNamaStasiun();
     }
+    
+    public List<Kereta> getListKereta() {
+        return daftarKereta;
+    }
+    
+    public List<Tiket> getListTiket() {
+        return daftarTiket;
+    }
+    
 }

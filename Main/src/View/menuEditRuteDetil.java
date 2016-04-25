@@ -43,7 +43,13 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         comBoxSt2 = new javax.swing.JComboBox<>();
         btnBatal = new javax.swing.JButton();
-        btnTambah = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txFieldJmlKereta = new javax.swing.JTextField();
+        btnEditDaftarKereta = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txFieldJmlTiket = new javax.swing.JTextField();
+        btnViewTiket = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -59,7 +65,19 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
 
         btnBatal.setText("Batal");
 
-        btnTambah.setText("Tambahkan");
+        btnSimpan.setText("Tambahkan");
+
+        jLabel5.setText("Jumlah Kereta");
+
+        txFieldJmlKereta.setEditable(false);
+
+        btnEditDaftarKereta.setText("Edit Daftar Kereta");
+
+        jLabel6.setText("Jumlah Tiket");
+
+        txFieldJmlTiket.setEditable(false);
+
+        btnViewTiket.setText("Lihat Daftar Tiket");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,24 +87,35 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSimpan)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBatal))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txFieldNama)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comBoxSt1, 0, 153, Short.MAX_VALUE)
-                                    .addComponent(comBoxSt2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnTambah)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBatal)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(comBoxSt1, 0, 153, Short.MAX_VALUE)
+                                        .addComponent(comBoxSt2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txFieldJmlTiket, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                                            .addComponent(txFieldJmlKereta))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnEditDaftarKereta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnViewTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -106,9 +135,19 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(comBoxSt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTambah)
+                    .addComponent(jLabel5)
+                    .addComponent(txFieldJmlKereta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditDaftarKereta))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txFieldJmlTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewTiket))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSimpan)
                     .addComponent(btnBatal))
                 .addContainerGap())
         );
@@ -117,18 +156,32 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnTambah;
+    private javax.swing.JButton btnEditDaftarKereta;
+    private javax.swing.JButton btnSimpan;
+    private javax.swing.JButton btnViewTiket;
     private javax.swing.JComboBox<String> comBoxSt1;
     private javax.swing.JComboBox<String> comBoxSt2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txFieldJmlKereta;
+    private javax.swing.JTextField txFieldJmlTiket;
     private javax.swing.JTextField txFieldNama;
     // End of variables declaration//GEN-END:variables
 
     public void setTxFieldNama(Rute r) {
         txFieldNama.setText(r.getNamaRute());
+    }
+    
+    public void setTxFieldJmlKereta(int n) {
+        txFieldJmlKereta.setText(String.valueOf(n));
+    }
+    
+    public void setTxFieldJmlTiket(int n) {
+        txFieldJmlTiket.setText(String.valueOf(n));
     }
     
     public void setComBoxSt(List<Stasiun> list) {
@@ -142,8 +195,16 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
         return btnBatal;
     }
 
-    public Object getBtnTambah() {
-        return btnTambah;
+    public Object getBtnSimpan() {
+        return btnSimpan;
+    }
+    
+    public Object getBtnEditDaftarKereta() {
+        return btnEditDaftarKereta;
+    }
+    
+    public Object getBtnViewTiket() {
+        return btnViewTiket;
     }
 
     public int getComBoxSt1() {
@@ -160,7 +221,9 @@ public class menuEditRuteDetil extends javax.swing.JPanel {
     
     public void addListener (ActionListener e) {
         btnBatal.addActionListener(e);
-        btnTambah.addActionListener(e);
+        btnSimpan.addActionListener(e);
+        btnEditDaftarKereta.addActionListener(e);
+        btnViewTiket.addActionListener(e);
         comBoxSt1.addActionListener(e);
         comBoxSt2.addActionListener(e);
     }

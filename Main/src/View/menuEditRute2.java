@@ -8,9 +8,11 @@ package View;
 import Model.Rute;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,29 +37,65 @@ public class menuEditRute2 extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listRute = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        detilRute = new javax.swing.JTextArea();
         btnBatal = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableRute = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Edit Data Rute");
 
-        listRute.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listRute.setToolTipText("");
-        jScrollPane1.setViewportView(listRute);
-
-        detilRute.setEditable(false);
-        detilRute.setColumns(20);
-        detilRute.setRows(5);
-        jScrollPane2.setViewportView(detilRute);
-
         btnBatal.setText("Batal");
 
         btnEdit.setText("Edit");
+
+        btnHapus.setText("Hapus");
+
+        tableRute.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nama Rute", "Stasiun 1", "Stasiun 2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tableRute);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -65,18 +103,17 @@ public class menuEditRute2 extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnEdit)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBatal)))
+                .addContainerGap(183, Short.MAX_VALUE)
+                .addComponent(btnHapus)
+                .addGap(18, 18, 18)
+                .addComponent(btnEdit)
+                .addGap(18, 18, 18)
+                .addComponent(btnBatal)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,14 +121,13 @@ public class menuEditRute2 extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBatal)
-                    .addComponent(btnEdit))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(btnEdit)
+                    .addComponent(btnHapus))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -99,11 +135,10 @@ public class menuEditRute2 extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JTextArea detilRute;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> listRute;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tableRute;
     // End of variables declaration//GEN-END:variables
 
     public Object getBtnEdit() {
@@ -114,29 +149,35 @@ public class menuEditRute2 extends javax.swing.JPanel {
         return btnBatal;
     }
     
-    public Object getListRute() {
-        return listRute;
+    public Object getBtnHapus() {
+        return btnHapus;
     }
     
-    public void setDetilRute(String s) {
-        detilRute.setText(s);
+    public String getSelectedRute() {
+        return (String) tableRute.getValueAt(tableRute.getSelectedRow(), 0);
     }
     
-    public void setListRute(List<Rute> list) {
-        String[] listData = new String[list.size()];
+    public void setTableRute(List<Rute> list) {
+        String[] title = {"Nama Rute","Stasiun 1","Stasiun 2"};
+        String[][] data = new String [list.size()][3];
         for (int i = 0; i < list.size(); i++) {
-            listData[i] = list.get(i).getNamaRute();
+            System.out.println(list.get(i));
+            Rute r = list.get(i);
+            data[i][0] = r.getNamaRute();
+            data[i][1] = r.getStasiun1().getNamaStasiun();
+            data[i][2] = r.getStasiun2().getNamaStasiun();
         }
-        listRute.setListData(listData);
+        tableRute.setModel(new DefaultTableModel(data,title));
     }
     
     public void addListener (ActionListener e) {
         btnBatal.addActionListener(e);
         btnEdit.addActionListener(e);
+        btnHapus.addActionListener(e);
     }
     
     public void addAdapter (MouseAdapter e) {
-        listRute.addMouseListener(e);
+        tableRute.addMouseListener(e);
     }
 
 }
