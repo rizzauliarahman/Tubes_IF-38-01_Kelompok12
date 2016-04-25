@@ -128,11 +128,6 @@ public class menuAddKereta extends javax.swing.JPanel {
     public String getTxFieldNamaKereta() {
         return txFieldNamaKereta.getText();
     }
-    
-    public void reset() {
-        txFieldNamaKereta.setText("");
-        comBoxJenisKereta.setSelectedIndex(0);
-    }
 
     public void addListener (ActionListener e) {
         btnBatal.addActionListener(e);

@@ -33,7 +33,19 @@ public class Application {
     public void createVectorGerbong() {
         Herbong = new Vector();
         for (Gerbong g : daftarGerbong) {
-            Herbong.add(g);
+            Stream<Gerbong> strGerbong = daftarGerbong.stream().filter((Gerbong g2) -> g2.equals(g));
+        }
+    }
+    
+    public void writeFile (List o, String filename) throws Exception {
+        File file = new File(filename);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try (FileOutputStream fout = new FileOutputStream(file)){
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            oout.writeObject(o);
+            oout.close();
         }
     }
     

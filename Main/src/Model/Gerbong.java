@@ -20,8 +20,8 @@ public class Gerbong implements Serializable {
         return nGerbong;
     }
 
-    public static void setnGerbong(int n) {
-        Gerbong.nGerbong = n;
+    public static void setnGerbong(int nGerbong) {
+        Gerbong.nGerbong = nGerbong;
     }
     
     public Gerbong (int kapasitas, int tipe) {

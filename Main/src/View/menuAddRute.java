@@ -127,8 +127,6 @@ public class menuAddRute extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void setComBoxSt(List<Stasiun> list) {
-        comBoxSt1.removeAllItems();
-        comBoxSt2.removeAllItems();
         for (int i = 0; i < list.size(); i++) {
             comBoxSt1.addItem(list.get(i).getNamaStasiun());
             comBoxSt2.addItem(list.get(i).getNamaStasiun());
@@ -153,12 +151,6 @@ public class menuAddRute extends javax.swing.JPanel {
 
     public String getTxFieldNama() {
         return txFieldNama.getText();
-    }
-    
-    public void reset() {
-        txFieldNama.setText("");
-        comBoxSt1.setSelectedIndex(0);
-        comBoxSt2.setSelectedIndex(0);
     }
     
     public void addListener (ActionListener e) {

@@ -46,7 +46,7 @@ public class menuEditGerbongDetil extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Edit Data Gerbong");
+        jLabel1.setText("Tambahkan Data Gerbong");
 
         jLabel2.setText("Jenis Gerbong");
 

@@ -87,8 +87,7 @@ public class menuEditGerbong2 extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tableGerbong.setCellSelectionEnabled(false);
-        tableGerbong.setRowSelectionAllowed(true);
+        tableGerbong.setColumnSelectionAllowed(true);
         tableGerbong.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableGerbong);
         tableGerbong.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -164,12 +163,6 @@ public class menuEditGerbong2 extends javax.swing.JPanel {
     }
     
     public void setTableGerbong(List<Gerbong> list) {
-        tableGerbong.clearSelection();
-        for (int i = 0; i < tableGerbong.getRowCount(); i++) {
-            tableGerbong.setValueAt("", i, 0);
-            tableGerbong.setValueAt("", i, 1);
-            tableGerbong.setValueAt("", i, 2);
-        }
         for (int i = 0; i < list.size(); i++) {
             tableGerbong.setValueAt(list.get(i).getIdGerbong(), i, 0);
             tableGerbong.setValueAt(list.get(i).getJenisGerbong(), i, 1);
